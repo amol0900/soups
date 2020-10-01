@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { mainColor } from '../Styles/colors';
-import Logo from '../images/LogoInverted.svg';
+import Logo from '../img/LogoInverted.svg';
 import '../App.css';
 
 
@@ -10,6 +10,11 @@ background-color: ${mainColor};
 padding:15px;
 display:flex;
 justify-content:center;
+position: -webkit-sticky;
+position:sticky;
+top:0;
+/* width:100%; */
+z-index:999;
 `
 
 export function Navbar(){
