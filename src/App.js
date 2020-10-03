@@ -20,7 +20,14 @@ body {
     font-weight:normal;
     color:#242424;
     margin:0;
-    
+  }
+
+  h2 {
+    font-family: 'Adobe Clean';
+    font-size:1.3em;
+    font-weight:bold;
+    color:#242424;
+    margin-top:5px;
   }
 
   p {margin:0px;
@@ -35,8 +42,6 @@ function App() {
   <div>
     <Navbar />
     <Menu />
-    <h1>Roasted tomato & quinoa</h1>
-    <p>Tomatsoppa med quinoa, vitlök och lök toppas<br /> med färsk basilika och krispiga krutonger.</p>
     </div>
 </>
   );
