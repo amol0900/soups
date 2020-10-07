@@ -9,14 +9,14 @@ const GlobalStyle = createGlobalStyle`
 body {
     margin:0;
     font-family: 'Adobe Clean';
-    font-size:0.7em;
+    font-size:0.6em;
     font-weight:normal;
     color:#242424;
   }
 
   h1 {
     font-family: 'Adobe Clean';
-    font-size:1.6em;
+    font-size:16px;
     font-weight:normal;
     color:#242424;
     margin:0;
@@ -31,7 +31,7 @@ body {
   }
 
   p {margin:0px;
-    padding-top:2px;
+    padding-top:1px;
     }
 `
 
@@ -40,7 +40,7 @@ function App() {
 <>
   <GlobalStyle/>
   <div>
-    <Navbar />
+    {/* <Navbar /> */}
     <Menu />
     </div>
 </>
