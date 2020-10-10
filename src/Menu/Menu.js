@@ -7,7 +7,11 @@ const MenuStyled = styled.div`
 display:flex;
 margin-top:30px;
 justify-content:center;
-`
+
+@media screen and (max-width: 500px) { 
+    
+    `
+
 
 export function Menu() {
     return <MenuStyled>

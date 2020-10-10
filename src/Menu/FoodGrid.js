@@ -3,12 +3,13 @@ import { buttonColor } from '../Styles/colors';
 
 
 export const FoodGrid = styled.div`
-display:flex;
-flex-direction:row;
-flex-wrap:wrap;
-justify-content:center;
+/* display:flex;
+flex-direction:row; */
 width:850px;
-`
+
+@media screen and (max-width: 500px) { width:auto;
+    `
+
 
 export const FoodWrapper = styled.div`
 display:flex;
@@ -16,7 +17,8 @@ flex-direction:row;
 flex-wrap:wrap;
 justify-content:space-between;
 
-`
+@media screen and (max-width: 500px) { justify-content:center;
+    `
 export const Food = styled.div`
 display:flex;
 box-sizing:border-box;
@@ -28,11 +30,9 @@ background-position:center;
 background-size:cover;
 background-repeat:no-repeat;
 
-@media screen and (max-width: 500px) { min-height: -webkit-fill-available;
-width: 100vw;
-/* margin-left:0;
-margin-right:0;  */
-background-size:cover;}
+@media screen and (max-width: 500px) { 
+ width: 300px; 
+ height: 600px;
 `
 
 export const FoodLabel = styled.div`
