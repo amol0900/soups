@@ -1,8 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import { mainColor } from '../Styles/colors';
-import '../App.css';
-
 
 const NavbarStyled = styled.div`
 background-color: white; 
@@ -13,6 +11,8 @@ justify-content:center;
 position:sticky; */
 top:0;
 /* height:120px; */
+
+
 `
 
 export function Navbar(){

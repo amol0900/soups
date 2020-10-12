@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 import { buttonColor } from '../Styles/colors';
 
-
 export const FoodGrid = styled.div`
 display:flex;
 flex-direction:column;
@@ -32,15 +31,12 @@ margin-top:30px;
 @media screen and (max-width: 500px) { 
  width: 300px; 
  /* height: 600px; */ 
- 
 }
 `
 
 export const FoodLabel = styled.div`
 margin-top:15px;
 box-sizing: border-box;
-
-
 `
 
 export const MyButton = styled.div`
@@ -50,4 +46,5 @@ color:white;
 padding:8px;
 font-size:11px;
 justify-content:center; 
+cursor:pointer;
 `

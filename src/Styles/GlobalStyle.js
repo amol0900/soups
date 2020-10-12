@@ -10,10 +10,8 @@ body {
   }
 
   h1 {
-    font-family: 'Adobe Clean';
     font-size:18px;
     font-weight:normal;
-    color:#242424;
     margin:0;
 
     @media screen and (max-width: 500px) { 
@@ -23,10 +21,7 @@ body {
   }
 
   h2 {
-    font-family: 'Adobe Clean';
     font-size:18px;
-    font-weight:bold;
-    color:#242424;
     margin-top:10px;
 
     @media screen and (max-width: 500px) { 
@@ -36,17 +31,32 @@ body {
   }
 
   h3 {
-    font-family: 'Adobe Clean';
     font-size:30px;
     font-weight:300;
-    color:#242424;
     margin-bottom:0px;
+    border-top: 1px solid #ccc;
+    padding-top:40px;
+    margin-top:25px;
 
 /*     @media screen and (max-width: 500px) { 
         font-size:24px;
         
        } */
   }
+
+  h4 {
+    font-size:16px;
+    font-weight:normal;
+  }
+
+  .buttonText {
+    font-size:12px;
+}
+
+@media screen and (max-width: 500px) { 
+    .item {width: 300px; 
+     height: auto;  }
+   }
 
   p {
     margin:0px;
@@ -57,5 +67,23 @@ body {
         
        }
     }
+
+    .empty-div {width:250px;}
+
+    .logo {
+      width:150px;
+      height:109px;
+  }
+  
+  .item {
+      width:250px;
+      /* height:570px; */
+  }
+
+  .price {
+    font-weight:bold;
+  }
+
+
 `
 

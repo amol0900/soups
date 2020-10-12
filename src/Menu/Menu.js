@@ -11,10 +11,10 @@ justify-content:center;
     
     `
 
-export function Menu() {
+export function Menu({setOpenFood}) {
     return <MenuStyled>
         <FoodGrid>
-        <h3>Vilken soppa blir det idag?</h3>
+        <h3>Meny</h3>
             <FoodWrapper>
         {foods.map(food => (
             <Food>
@@ -23,7 +23,9 @@ export function Menu() {
                 <h1>{food.name}</h1>
                 <p>{food.description}</p>
                 <h2>{food.price}</h2>
-                <MyButton>
+                <MyButton onClick={() => {
+                    setOpenFood(food);
+                }}>
                     <p className="buttonText">Lägg till</p>
                 </MyButton>
                 </FoodLabel>
