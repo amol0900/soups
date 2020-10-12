@@ -1,3 +1,32 @@
-.logo {
-    width:110px;
+
+
+@font-face {
+    font-family: Noteworthy;
+    src: url('./font/Noteworthy.ttc');
 }
+
+.logo {
+    width:150px;
+    height:auto;
+}
+
+.item {
+    width:250px;
+    /* height:570px; */
+}
+
+.buttonText {
+    font-size:12px;
+}
+
+@media screen and (max-width: 500px) { 
+    .item {width: 300px; 
+     height: auto;  }
+   }
+
+   .soup {
+       font-family: Noteworthy;
+       color:rgba(154, 181, 74, 0.85 );
+   }
+
+   .empty-div {width:250px;}

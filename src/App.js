@@ -10,7 +10,7 @@ function App() {
   return (
 <>
   <GlobalStyle/>
-    {/* <Navbar />  */}
+     <Navbar />  
     <Menu />
 </>
   );

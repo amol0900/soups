@@ -5,19 +5,18 @@ import '../App.css';
 
 
 const NavbarStyled = styled.div`
-background-color: ${mainColor}; 
-padding:10px;
+background-color: white; 
+
 display:flex;
-justify-content:center;
-position: -webkit-sticky;
-position:sticky;
+justify-content:center; 
+/* position: -webkit-sticky;
+position:sticky; */
 top:0;
-/* width:100%; */
-z-index:999;
+/* height:120px; */
 `
 
 export function Navbar(){
     return <NavbarStyled>
-        <img src="/img/LogoInverted.svg" alt="logo" className="logo" />
+        <img src="/img/LogoN.png" alt="logo" className="logo" />
     </NavbarStyled>;
 }
