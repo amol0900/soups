@@ -53,11 +53,6 @@ body {
     font-size:12px;
 }
 
-@media screen and (max-width: 500px) { 
-    .item {width: 300px; 
-     height: auto;  }
-   }
-
   p {
     margin:0px;
     padding-top:3px;
@@ -79,6 +74,11 @@ body {
       width:250px;
       /* height:570px; */
   }
+
+  @media screen and (max-width: 500px) { 
+    .item {width: 300px; 
+     height: auto;  }
+   }
 
   .price {
     font-weight:bold;
