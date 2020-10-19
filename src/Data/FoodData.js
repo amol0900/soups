@@ -1,7 +1,3 @@
-var myMultiString =
-`Morötter, koriander, lök, och ingefära
-toppat med rostad lök och creme fraiche.`;
-
 export const foods = [
 {
     name: 'Roasted tomato & quinoa',
@@ -29,7 +25,7 @@ export const foods = [
 
 {
     name: 'Roast carrot & coriander',
-    description:`${myMultiString}`,
+    description:'Morötter, koriander, lök, och ingefära toppat med rostad lök och creme fraiche',
     price: '85kr',
     img: '/img/4x.jpg',
     minImg: '/img/4m.jpg'

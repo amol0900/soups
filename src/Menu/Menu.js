@@ -5,7 +5,7 @@ import { Food, FoodGrid, FoodLabel, FoodWrapper, MyButton} from './FoodGrid';
 
 const MenuStyled = styled.div`
 display:flex;
-justify-content:center;
+/* justify-content:center; */
 
 @media screen and (max-width: 500px) { 
     

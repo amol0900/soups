@@ -1,10 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
+import { MyButton} from '../Menu/FoodGrid';
 
 const Dialog = styled.div`
+display:flex;
+flex-direction:column;
 background-color:white;
 width:300px;
-height:2000px;
+/* height:2000px; */
 position:fixed;
 top:75px;
 z-index:5;
@@ -29,12 +32,23 @@ background-position:center;
 background-size:cover;
 
 `
-
 const DialogTitle = styled.div`
 display:flex;
 flex-direction:row;
 justify-content:space-around;
 width:100%;
+`
+
+const DialogContent = styled.div`
+overflow:auto;
+min-height:100px;
+
+`
+
+const DialogFooter = styled.div`
+box-shadow: 0px 2px 20px 0px grey;
+height:60px;
+
 `
 
 export function FoodDialog({openFood, setOpenFood}) {
@@ -49,9 +63,17 @@ export function FoodDialog({openFood, setOpenFood}) {
     <Dialog>
         <DialogBanner img={openFood.minImg} />
         <DialogTitle>
-        <h4>{openFood.name}</h4>
-        <h4><span className="price">{openFood.price}</span></h4>
+            <h4>{openFood.name}</h4>
+            <h4><span className="price">{openFood.price}</span></h4>
         </DialogTitle>
+
+        <DialogContent></DialogContent>
+
+        <DialogFooter>
+            <MyButton>
+                <p className="buttonText">Lägg till</p>
+            </MyButton>
+        </DialogFooter>
     </Dialog>
     </>
     ) : null

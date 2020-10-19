@@ -4,6 +4,8 @@ import './font/AdobeClean/stylesheet.css';
 import { Navbar } from './Navbar/Navbar'; 
 import { Menu } from './Menu/Menu';
 import {FoodDialog} from './FoodDialog/FoodDialog';
+import { Order } from './Order/Order';
+import { MyOrder } from './MyOrder/MyOrder';
 
 
 
@@ -15,7 +17,8 @@ const [openFood, setOpenFood] = useState();
   <GlobalStyle/>
   <FoodDialog openFood={openFood} setOpenFood={setOpenFood}/>
      <Navbar />  
-  
+     <MyOrder />
+     {/* <Order /> */}
     <Menu setOpenFood={setOpenFood}/>
 </>
   );
