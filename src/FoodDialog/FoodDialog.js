@@ -51,7 +51,6 @@ height:60px;
 
 `
 
-
 export function FoodDialog({openFood, setOpenFood, setOrders, orders}) {
 
     function close() {
