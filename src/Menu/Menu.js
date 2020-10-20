@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { foods } from '../Data/FoodData';
 import { Food, FoodGrid, FoodLabel, FoodWrapper, MyButton} from './FoodGrid';
+import {formatPrice} from '../Data/FoodData';
 
 const MenuStyled = styled.div`
 display:flex;
@@ -23,7 +24,7 @@ export function Menu({setOpenFood}) {
                 <FoodLabel>
                 <h1>{food.name}</h1>
                 <p>{food.description}</p>
-                <h2>{food.price}</h2>
+                <h2>{formatPrice(food.price)}</h2>
                 <MyButton onClick={() => {
                     setOpenFood(food);
                 }}>

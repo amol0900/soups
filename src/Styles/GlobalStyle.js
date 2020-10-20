@@ -23,7 +23,7 @@ body {
   h2 {
     font-size:18px;
     margin-top:10px;
-
+    
     @media screen and (max-width: 500px) { 
         font-size:24px;
         
@@ -82,6 +82,7 @@ body {
 
   .price {
     font-weight:bold;
+    font-size:15px;
   }
 
 

@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { MyButton} from '../Menu/FoodGrid';
+import {formatPrice} from '../Data/FoodData';
 
 
 const Dialog = styled.div`
@@ -59,7 +60,7 @@ export function FoodDialog({openFood, setOpenFood, setOrders, orders}) {
     if (!openFood) return null;
 
     const order = {
-        name: openFood.name
+        ...openFood
     }
 
     function addToOrder () {
@@ -75,7 +76,7 @@ export function FoodDialog({openFood, setOpenFood, setOrders, orders}) {
          <DialogBanner img={openFood.minImg} />
         <DialogTitle>
             <h4>{openFood.name}</h4>
-            <h4><span className="price">{openFood.price}</span></h4>
+            <h4><span className="price">{formatPrice(openFood.price)}</span></h4>
         </DialogTitle>
 
         <DialogContent></DialogContent>
