@@ -1,7 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import { MyButton} from '../Menu/FoodGrid';
-import {formatPrice} from '../Data/FoodData';
+import { formatPrice } from '../Data/FoodData';
+import { QuantityInput } from './QuantityInput';
+import { useQuantity } from '../Hooks/useQuantity';
 
 
 const Dialog = styled.div`
@@ -52,7 +54,8 @@ height:60px;
 
 `
 
-export function FoodDialog({openFood, setOpenFood, setOrders, orders}) {
+function FoodDialogContainer({openFood, setOpenFood, setOrders, orders}) {
+    const quantity = useQuantity(openFood && openFood.quantity);
 
     function close() {
         setOpenFood();
@@ -79,7 +82,9 @@ export function FoodDialog({openFood, setOpenFood, setOrders, orders}) {
             <h4><span className="price">{formatPrice(openFood.price)}</span></h4>
         </DialogTitle>
 
-        <DialogContent></DialogContent>
+        <DialogContent>
+            <QuantityInput quantity={quantity}/>
+        </DialogContent>
 
         <DialogFooter>
             <MyButton onClick={addToOrder}>
@@ -89,4 +94,9 @@ export function FoodDialog({openFood, setOpenFood, setOrders, orders}) {
     </Dialog>
     </>
     );
+}
+
+export function FoodDialog(props){
+    if (!props.openFood) return null;
+    return <FoodDialogContainer {...props} />;
 }
