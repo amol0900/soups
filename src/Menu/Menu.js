@@ -12,6 +12,7 @@ display:flex;
     `
 
 export function Menu({setOpenFood}) {
+
     return <MenuStyled>
         <FoodGrid>
         <h3>Meny</h3>
@@ -28,6 +29,7 @@ export function Menu({setOpenFood}) {
                 }}>
                     <p className="buttonText">Lägg till</p>
                 </MyButton>
+                
                 </FoodLabel>
                 
                 </Food>

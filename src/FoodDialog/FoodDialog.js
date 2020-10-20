@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { MyButton} from '../Menu/FoodGrid';
 
+
 const Dialog = styled.div`
 display:flex;
 flex-direction:column;
@@ -44,24 +45,35 @@ overflow:auto;
 min-height:100px;
 
 `
-
 const DialogFooter = styled.div`
 box-shadow: 0px 2px 20px 0px grey;
 height:60px;
 
 `
 
-export function FoodDialog({openFood, setOpenFood}) {
+
+export function FoodDialog({openFood, setOpenFood, setOrders, orders}) {
+
     function close() {
         setOpenFood();
     }
     if (!openFood) return null;
+
+    const order = {
+        name: openFood.name
+    }
+
+    function addToOrder () {
+        setOrders([...orders, order])
+        close();
+    }
+
+
     return (
-        openFood ? (
      <>
-     <DialogShadow onClick={close} />
-    <Dialog>
-        <DialogBanner img={openFood.minImg} />
+        <DialogShadow onClick={close} />
+        <Dialog>
+         <DialogBanner img={openFood.minImg} />
         <DialogTitle>
             <h4>{openFood.name}</h4>
             <h4><span className="price">{openFood.price}</span></h4>
@@ -70,12 +82,11 @@ export function FoodDialog({openFood, setOpenFood}) {
         <DialogContent></DialogContent>
 
         <DialogFooter>
-            <MyButton>
+            <MyButton onClick={addToOrder}>
                 <p className="buttonText">Lägg till</p>
             </MyButton>
         </DialogFooter>
     </Dialog>
     </>
-    ) : null
-);
+    );
 }
