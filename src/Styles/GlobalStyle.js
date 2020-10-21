@@ -47,6 +47,7 @@ body {
   h4 {
     font-size:16px;
     font-weight:normal;
+    margin:20px 0px 10px 0px;
   }
 
   .buttonText {

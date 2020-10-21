@@ -41,6 +41,8 @@ display:grid;
 grid-template-columns: 200px 50px;
 justify-content:space-between;
 padding: 0px 20px 0px 20px;
+padding-bottom:0px;
+margin-bottom:0px;
 `
 
 const DialogContent = styled.div`
