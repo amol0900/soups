@@ -37,16 +37,16 @@ background-size:cover;
 
 `
 const DialogTitle = styled.div`
-display:flex;
-flex-direction:row;
-justify-content:space-around;
-width:100%;
+display:grid;
+grid-template-columns: 200px 50px;
+justify-content:space-between;
+padding: 0px 20px 0px 20px;
 `
 
 const DialogContent = styled.div`
 overflow:auto;
 min-height:100px;
-
+padding:0px 24px;
 `
 const DialogFooter = styled.div`
 box-shadow: 0px 2px 20px 0px grey;

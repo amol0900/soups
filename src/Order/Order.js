@@ -22,7 +22,7 @@ border-bottom: 1px solid #ccc;
 `
 
 const OrderItem = styled.div`
-padding: 10px 0 px;
+padding: 10px 0px;
 display:grid;
 grid-template-columns:20px 150px 20px 60px;
 justify-content:space-between;
