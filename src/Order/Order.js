@@ -11,8 +11,6 @@ top:150px;
 width:340px;
 height:100%;
 
-
-
 `
 const OrderContent = styled.div`
 padding:20px;
@@ -24,6 +22,10 @@ padding:10px 0px;
 border-bottom: 1px solid #ccc;
 `
 
+const PriceContainer = styled.div`
+padding:10px 0px;
+`
+
 const OrderItem = styled.div`
 padding: 10px 0px;
 display:grid;
@@ -31,7 +33,14 @@ grid-template-columns:20px 150px 20px 60px;
 justify-content:space-between;
 `
 
-export function Order({orders}) {
+export function Order({ orders }) {
+    const subtotal = orders.reduce((total, order) => {
+        return total + getPrice(order);
+    }, 0);
+
+    const deliveryFee = 39;
+    const total = subtotal + deliveryFee;
+
     return (
     <MyOrderStyled>
        {orders.length === 0 ? (
@@ -52,6 +61,32 @@ export function Order({orders}) {
                </OrderContainer>
 
            ))}
+           <PriceContainer>
+               <OrderItem>
+                   <div/>
+                   <div>Delsumma</div>
+                   <div/>
+                   <div>
+                    {formatPrice(subtotal)}
+                   </div>
+               </OrderItem>
+               <OrderItem>
+                   <div/>
+                   <div>Leveransavgift</div>
+                   <div/>
+                   <div>
+                    {formatPrice(deliveryFee)}
+                   </div>
+               </OrderItem>
+               <OrderItem>
+                   <div/>
+                   <div><span className="bold">Totalbelopp</span></div>
+                   <div/>
+                   <div>
+                    <span className="bold">{formatPrice(total)}</span>
+                   </div>
+               </OrderItem>
+           </PriceContainer>
         </OrderContent>
         )}
         </MyOrderStyled>

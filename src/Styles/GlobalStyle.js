@@ -1,6 +1,6 @@
 import { createGlobalStyle } from 'styled-components';
-
 export const GlobalStyle = createGlobalStyle`
+
 body {
     margin:0;
     font-family: 'Adobe Clean';
@@ -62,6 +62,10 @@ body {
         font-size:16px;
         
        }
+    }
+
+    .bold {
+      font-weight:bold;
     }
 
     .empty-div {width:250px;}

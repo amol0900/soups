@@ -7,7 +7,7 @@ import {formatPrice} from '../Data/FoodData';
 const MenuStyled = styled.div`
 display:flex;
 /* justify-content:center; */
-margin-left:50px;
+ margin-left:200px; 
 
 @media screen and (max-width: 500px) { 
     
@@ -37,8 +37,8 @@ export function Menu({setOpenFood}) {
                 </Food>
                 
         ))}
-    {/*     <div className="empty-div"></div>
-        <div className="empty-div"></div> */}
+        <div className="empty-div"></div>
+        <div className="empty-div"></div>
         </FoodWrapper>
         </FoodGrid>
     </MenuStyled>

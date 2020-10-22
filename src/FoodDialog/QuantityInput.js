@@ -5,7 +5,6 @@ import {mainColor} from '../Styles/colors';
 
 const QuantityInputStyled = styled.input`
 font-size: 14px;
-font-weight:bold;
 width: 24px;
 text-align:center;
 border:none;
@@ -23,6 +22,7 @@ const IncrementButton = styled.div`
   height:15px;
   color: #656565;
   font-size: 15px;
+  font-weight:bold;
   text-align: center;
   cursor: pointer;
   line-height: 18px;
