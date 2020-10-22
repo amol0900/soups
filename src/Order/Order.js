@@ -1,14 +1,17 @@
 import React from 'react';
 import styled from 'styled-components';
 import { formatPrice } from '../Data/FoodData';
+import { getPrice } from '../FoodDialog/FoodDialog';
 
 const MyOrderStyled = styled.div `
 position:fixed;
 right:0;
-top:50px;
+margin-right:50px;
+top:150px;
 width:340px;
 height:100%;
-background-color:white;
+
+
 
 `
 const OrderContent = styled.div`
@@ -41,10 +44,10 @@ export function Order({orders}) {
            {orders.map( order => (
                <OrderContainer>
                    <OrderItem>
-                       <div>1</div>
+                       <div>{order.quantity}</div>
                        <div>{order.name}</div>
                        <div></div>
-                       <div>{formatPrice(order.price)}</div>
+                       <div>{formatPrice(getPrice(order))}</div>
                    </OrderItem>
                </OrderContainer>
 

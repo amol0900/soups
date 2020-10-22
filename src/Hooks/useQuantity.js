@@ -8,7 +8,7 @@ export function useQuantity(defaultQuantity){
         setValue(1);
         return;
     }
-    setValue(e.target.value);
+    setValue(+e.target.value);
 }
     return {
         value,

@@ -34,7 +34,7 @@ body {
     font-size:30px;
     font-weight:300;
     margin-bottom:0px;
-    border-top: 1px solid #ccc;
+    /* border-top: 1px solid #ccc; */
     padding-top:40px;
     margin-top:25px;
 

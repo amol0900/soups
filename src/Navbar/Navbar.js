@@ -11,6 +11,10 @@ justify-content:center;
 position:sticky; */
 top:0;
 /* height:120px; */
+border-bottom: 1px solid #ccc;
+margin-left:50px;
+margin-right:50px;
+padding-bottom:20px;
 
 `
 export function Navbar(){

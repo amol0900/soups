@@ -56,6 +56,10 @@ height:60px;
 
 `
 
+export function getPrice(order){
+   return order.quantity * order.price; 
+}
+
 function FoodDialogContainer({openFood, setOpenFood, setOrders, orders}) {
     const quantity = useQuantity(openFood && openFood.quantity);
 
@@ -65,7 +69,8 @@ function FoodDialogContainer({openFood, setOpenFood, setOrders, orders}) {
     if (!openFood) return null;
 
     const order = {
-        ...openFood
+        ...openFood,
+        quantity: quantity.value
     }
 
     function addToOrder () {
@@ -90,7 +95,7 @@ function FoodDialogContainer({openFood, setOpenFood, setOrders, orders}) {
 
         <DialogFooter>
             <MyButton onClick={addToOrder}>
-                <p className="buttonText">Lägg till</p>
+                <p className="buttonText">Lägg till {quantity.value} i varukorgen - {formatPrice(getPrice(order))}</p> 
             </MyButton>
         </DialogFooter>
     </Dialog>

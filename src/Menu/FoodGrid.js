@@ -5,7 +5,7 @@ export const FoodGrid = styled.div`
 display:flex;
 flex-direction:column;
 /* align-items:center; */
-width:1050px;
+width:810px;
 height:auto;
 `
 
