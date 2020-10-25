@@ -16,6 +16,9 @@ display:flex;
 export function Menu({setOpenFood}) {
 
     return <MenuStyled>
+        {Object.entries(foods).map(([sectionName, foods]) => (
+            <>
+            {/* <h1>{sectionName}</h1> */}
         <FoodGrid>
         <h3>Meny</h3>
             <FoodWrapper>
@@ -41,5 +44,8 @@ export function Menu({setOpenFood}) {
         <div className="empty-div"></div>
         </FoodWrapper>
         </FoodGrid>
+        </>
+                
+                ))}
     </MenuStyled>
 }

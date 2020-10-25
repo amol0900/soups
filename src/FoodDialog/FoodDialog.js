@@ -4,6 +4,9 @@ import { MyButton} from '../Menu/FoodGrid';
 import { formatPrice } from '../Data/FoodData';
 import { QuantityInput } from './QuantityInput';
 import { useQuantity } from '../Hooks/useQuantity';
+import {Bread} from './Bread';
+import {Drink} from './Drink';
+import {useBreads} from '../Hooks/useBreads';
 
 
 const Dialog = styled.div`
@@ -49,19 +52,26 @@ const DialogContent = styled.div`
 overflow:auto;
 min-height:100px;
 padding:0px 24px;
+padding-bottom:80px;
 `
 const DialogFooter = styled.div`
 box-shadow: 0px 2px 20px 0px grey;
 height:60px;
 
 `
+const pricePerBread = 25;
 
 export function getPrice(order){
-   return order.quantity * order.price; 
+    return order.quantity * (order.price + order.breads.filter(d => d.checked) * pricePerBread ); 
 }
+
+function hasBread(food) {
+    return food.section === "soup";
+  }
 
 function FoodDialogContainer({openFood, setOpenFood, setOrders, orders}) {
     const quantity = useQuantity(openFood && openFood.quantity);
+    const breads = useBreads(openFood.breads);
 
     function close() {
         setOpenFood();
@@ -70,7 +80,9 @@ function FoodDialogContainer({openFood, setOpenFood, setOrders, orders}) {
 
     const order = {
         ...openFood,
-        quantity: quantity.value
+        quantity: quantity.value,
+        breads: breads.breads
+        
     }
 
     function addToOrder () {
@@ -91,6 +103,10 @@ function FoodDialogContainer({openFood, setOpenFood, setOrders, orders}) {
 
         <DialogContent>
             <QuantityInput quantity={quantity}/>
+            <h5><span className="bold">Välj tillbehör</span> (obligatorisk)</h5>
+            <Bread {...breads}/>
+            <h5><span className="bold">Välj dryck</span></h5>
+            {/* <Drink /> */}
         </DialogContent>
 
         <DialogFooter>
