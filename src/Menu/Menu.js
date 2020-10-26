@@ -6,8 +6,8 @@ import {formatPrice} from '../Data/FoodData';
 
 const MenuStyled = styled.div`
 display:flex;
-/* justify-content:center; */
- margin-left:50px; 
+justify-content:center;
+ /* margin-left:50px;  */
 
 @media screen and (max-width: 500px) { 
     
@@ -16,14 +16,14 @@ display:flex;
 export function Menu({setOpenFood}) {
 
     return <MenuStyled>
-        {Object.entries(foods).map(([sectionName, foods]) => (
+        {Object.entries(foods).map(([sectionName, foods], index) => (
             <>
             {/* <h1>{sectionName}</h1> */}
         <FoodGrid>
         <h3>Meny</h3>
             <FoodWrapper>
-        {foods.map(food => (
-            <Food>
+        {foods.map((food, index) => (
+            <Food key={index}>
                <img src={food.img} className="item" />
                 <FoodLabel>
                 <h1>{food.name}</h1>

@@ -27,7 +27,7 @@ const breadsList = [
 function getDefaultBreads() {
   return breadsList.map(bread => ({
     name: bread,
-    price:'25',
+
     checked: false
   }));
 }

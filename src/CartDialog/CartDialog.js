@@ -2,12 +2,13 @@ import React from 'react';
 import styled from 'styled-components';
 import { MyButton} from '../Menu/FoodGrid';
 import { formatPrice } from '../Data/FoodData';
-import { QuantityInput } from './QuantityInput';
+import { QuantityInput } from '../FoodDialog/QuantityInput';
 import { useQuantity } from '../Hooks/useQuantity';
-import {Bread} from './Bread';
-import {Drink} from './Drink';
+import {Bread} from '../FoodDialog/Bread';
+import {Drink} from '../FoodDialog/Drink';
 import {useBreads} from '../Hooks/useBreads';
 import {useDrinks} from '../Hooks/useDrinks';
+import { Order } from  '../Order/Order'
 
 
 
@@ -61,11 +62,10 @@ box-shadow: 0px 2px 20px 0px grey;
 height:60px;
 
 `
-const pricePerDrink = 25;
+ const pricePerDrink = 25;
 
 export function getPrice(order){
     console.log(order)
-   /* return order.quantity * (order.price); */ 
    return (
        order.quantity *
         (order.price + 
@@ -80,19 +80,19 @@ function hasBread(food) {
   function hasDrink(food) {
     return food.section === "soup";
   }
-
-function FoodDialogContainer({openFood, setOpenFood, setOrders, orders}) {
-    const quantity = useQuantity(openFood && openFood.quantity);
-    const breads = useBreads(openFood.breads);
-    const drinks = useDrinks(openFood.drinks);
+ 
+function CartDialogContainer({openCart, setOpenCart, setOrders, orders}) {
+     const quantity = useQuantity(openCart && openCart.quantity);
+    const breads = useBreads(openCart.breads);
+    const drinks = useDrinks(openCart.drinks);
 
     function close() {
-        setOpenFood();
+        setOpenCart();
     }
-    if (!openFood) return null;
+    if (!openCart) return null;
 
     const order = {
-        ...openFood,
+        ...openCart,
         quantity: quantity.value,
         breads: breads.breads,
         drinks: drinks.drinks
@@ -103,40 +103,19 @@ function FoodDialogContainer({openFood, setOpenFood, setOrders, orders}) {
         setOrders([...orders, order])
         close();
     }
-
+ 
 
     return (
      <>
         <DialogShadow onClick={close} />
         <Dialog>
-         <DialogBanner img={openFood.minImg} />
-        <DialogTitle>
-            <h4>{openFood.name}</h4>
-            <h4><span className="price">{formatPrice(openFood.price)}</span></h4>
-        </DialogTitle>
-
-        <DialogContent>
-            <QuantityInput quantity={quantity}/>
-            <h5><span className="bold">Välj tillbehör</span> (obligatorisk)</h5>
-            <Bread {...breads}/>
-            <h5><span className="bold">Välj dryck</span></h5>
-            <Drink {...drinks}/>
-        </DialogContent>
-
-        <DialogFooter>
-            <MyButton onClick={addToOrder}>
-                <p className="buttonText">Lägg till {/* {quantity.value} */} i varukorgen - {formatPrice(getPrice(order))}</p> 
-            </MyButton>
-        </DialogFooter>
+         <Order orders={orders} setOrders={setOrders}/>
     </Dialog>
     </>
     );
 }
 
-export function oldFoodDialog(props){
-    if (!props.openFood) return null;
-    return <FoodDialogContainer {...props} />;  
-}
-export function FoodDialog(props){
-    return (props.openFood) ?  <FoodDialogContainer {...props} /> : null; 
+
+export function CartDialog(props){
+    return (props.openCart) ?  <CartDialogContainer {...props} /> : null; 
 }

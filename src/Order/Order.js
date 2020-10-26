@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { formatPrice } from '../Data/FoodData';
 import { getPrice } from '../FoodDialog/FoodDialog';
 
-const MyOrderStyled = styled.div`
+/* const MyOrderStyled = styled.div`
 position:fixed;
 right:0;
 margin-right:50px;
@@ -11,15 +11,20 @@ top:150px;
 width:340px;
 height:100%;
 
-`
+` */
 const OrderContent = styled.div`
 padding:20px;
 height:100%;
 `
 
+const OrderTitle=styled.div`
+display:flex;
+justify-content:center;
+`
+
 const OrderContainer = styled.div`
 padding:10px 0px;
-border-bottom: 1px solid #ccc;
+/* border-bottom: 1px solid #ccc; */
 `
 
 const PriceContainer = styled.div`
@@ -36,29 +41,29 @@ justify-content:space-between;
 const DetailItem = styled.div`
 color:gray;
 font-size:10px;
-padding: 0px 36px;
+padding: 0px 25px;
 `
 
-export function Order({ orders }) {
+export function Order({ orders, setOrders }) {
     const subtotal = orders.reduce((total, order) => {
         return total + getPrice(order);
     }, 0);
 
     const deliveryFee = 39;
     const total = subtotal + deliveryFee;
-
-
+    
     return (
-        <MyOrderStyled>
+        <>
             {orders.length === 0 ? (
                 <OrderContent>Your order is empty</OrderContent>
             ) : (
                     <OrderContent>
                         <OrderContainer>
-                            <h1>Din varukorg</h1>
+                            <OrderTitle><h1>Din varukorg</h1></OrderTitle>
                         </OrderContainer>{" "}
-                        {orders.map(order => (
-                            <OrderContainer>
+                        {orders.map((order, index) => (
+                            
+                            <OrderContainer key={index}>
                                 <OrderItem>
                                     <div>{order.quantity}</div>
                                     <div>{order.name}</div>
@@ -72,9 +77,8 @@ export function Order({ orders }) {
                                     }</div>
 
                                 </DetailItem>
-
                                 <OrderItem>
-                                    <div>{order.drinks.filter(d => d.checked).length}</div>
+                                    <div>{order.drinks.filter(d => d.checked).length === 0 ? null : order.drinks.filter(d => d.checked).length}</div>
                                     <div>{order.drinks.filter(d => d.checked).map(drink => drink.name)}</div>
                                     <div></div>
                                     <div>{order.drinks.filter(d => d.checked).map(drink => formatPrice(drink.price))}
@@ -111,6 +115,6 @@ export function Order({ orders }) {
                         </PriceContainer>
                     </OrderContent>
                 )}
-        </MyOrderStyled>
+        </>
     );
 }

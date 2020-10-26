@@ -4,8 +4,10 @@ import './font/AdobeClean/stylesheet.css';
 import { Navbar } from './Navbar/Navbar'; 
 import { Menu } from './Menu/Menu';
 import {FoodDialog} from './FoodDialog/FoodDialog';
+import {CartDialog} from './CartDialog/CartDialog';
 import { Order } from './Order/Order';
 import { useOpenFood } from './Hooks/useOpenFood';
+import { useOpenCart } from './Hooks/useOpenCart';
 import { useOrders } from './Hooks/useOrders';
 import { useTitle } from './Hooks/useTitle';
 
@@ -13,6 +15,7 @@ import { useTitle } from './Hooks/useTitle';
 
 function App() {
 const openFood = useOpenFood();
+const openCart = useOpenCart();
 const orders = useOrders();
 useTitle ({...openFood, ...orders});
 
@@ -20,8 +23,9 @@ useTitle ({...openFood, ...orders});
 <>
   <GlobalStyle/>
   <FoodDialog {...openFood} {...orders}/>
-     <Navbar />  
-     <Order {...orders} />
+  <CartDialog {...openCart} {...orders}/>
+     <Navbar onClick={() => openCart.setOpenCart(true)} {...orders}/>  
+     {/* <Order {...orders} /> */}
      {/* <Order /> */}
     <Menu {...openFood} />
 </>

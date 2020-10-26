@@ -80,6 +80,11 @@ body {
       width:150px;
       height:109px;
   }
+
+  .soup {
+    width:50px;
+    height:39px;
+}
   
   .item {
       width:250px;

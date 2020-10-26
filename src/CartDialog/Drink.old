@@ -18,8 +18,7 @@ const CheckboxLabel = styled.label`
 cursor:pointer;
 `
 
-
-export function Drink({drinks, checkDrink}, i){
+export function Drink({drinks, checkDrink}){
     return (
     <DrinkGrid>
     {drinks.map((drink, i) => (
