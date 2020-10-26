@@ -7,7 +7,7 @@ import {formatPrice} from '../Data/FoodData';
 const MenuStyled = styled.div`
 display:flex;
 /* justify-content:center; */
- margin-left:200px; 
+ margin-left:50px; 
 
 @media screen and (max-width: 500px) { 
     
