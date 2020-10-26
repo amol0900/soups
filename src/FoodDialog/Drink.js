@@ -1,10 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
+import {formatPrice} from '../Data/FoodData';
 
 const DrinkGrid = styled.div`
 display:grid;
 grid-tempalte-columns: repeat (3, 1fr);
-padding:0px 24px; 
+/* padding:0px 24px; */ 
 
 `
 const DrinkCheckbox = styled.input`
@@ -17,17 +18,19 @@ const CheckboxLabel = styled.label`
 cursor:pointer;
 `
 
-export function Drink({breads, checkBread}){
+export function Drink({drinks, checkDrink}){
     return (
     <DrinkGrid>
-    {breads.map((bread, i) => (<CheckboxLabel>
+    {drinks.map((drink, i) => (
+    <CheckboxLabel>
     <DrinkCheckbox type="checkbox"
-    checked={bread.checked}
+    checked={drink.checked}
      onClick={() => {
-        checkBread(i);
+        checkDrink(i);
     }}/>
-    Drink
-    </CheckboxLabel>))}
+    {drink.name} {formatPrice(drink.price)}
+    </CheckboxLabel>
+    ))}
     </DrinkGrid>
     );
 }

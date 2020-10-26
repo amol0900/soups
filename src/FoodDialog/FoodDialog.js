@@ -7,6 +7,8 @@ import { useQuantity } from '../Hooks/useQuantity';
 import {Bread} from './Bread';
 import {Drink} from './Drink';
 import {useBreads} from '../Hooks/useBreads';
+import {useDrinks} from '../Hooks/useDrinks';
+
 
 
 const Dialog = styled.div`
@@ -59,19 +61,29 @@ box-shadow: 0px 2px 20px 0px grey;
 height:60px;
 
 `
-const pricePerBread = 25;
+/* const pricePerDrink = 25; */
 
 export function getPrice(order){
-    return order.quantity * (order.price + order.breads.filter(d => d.checked) * pricePerBread ); 
+   return order.quantity * (order.price); 
+/*    return (
+       order.quantity *
+        (order.price + 
+            order.drinks.filter(d => d.checked).length * pricePerDrink)
+    );  */
 }
 
 function hasBread(food) {
     return food.section === "soup";
   }
 
+  function hasDrink(food) {
+    return food.section === "soup";
+  }
+
 function FoodDialogContainer({openFood, setOpenFood, setOrders, orders}) {
     const quantity = useQuantity(openFood && openFood.quantity);
     const breads = useBreads(openFood.breads);
+    const drinks = useDrinks(openFood.drinks);
 
     function close() {
         setOpenFood();
@@ -81,7 +93,8 @@ function FoodDialogContainer({openFood, setOpenFood, setOrders, orders}) {
     const order = {
         ...openFood,
         quantity: quantity.value,
-        breads: breads.breads
+        breads: breads.breads,
+        drinks: drinks.drinks
         
     }
 
@@ -106,12 +119,12 @@ function FoodDialogContainer({openFood, setOpenFood, setOrders, orders}) {
             <h5><span className="bold">Välj tillbehör</span> (obligatorisk)</h5>
             <Bread {...breads}/>
             <h5><span className="bold">Välj dryck</span></h5>
-            {/* <Drink /> */}
+            <Drink {...drinks}/>
         </DialogContent>
 
         <DialogFooter>
             <MyButton onClick={addToOrder}>
-                <p className="buttonText">Lägg till {quantity.value} i varukorgen - {formatPrice(getPrice(order))}</p> 
+                <p className="buttonText">Lägg till {/* {quantity.value} */} i varukorgen - {formatPrice(getPrice(order))}</p> 
             </MyButton>
         </DialogFooter>
     </Dialog>

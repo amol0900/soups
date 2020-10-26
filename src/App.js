@@ -8,19 +8,18 @@ import { Order } from './Order/Order';
 import { useOpenFood } from './Hooks/useOpenFood';
 import { useOrders } from './Hooks/useOrders';
 import { useTitle } from './Hooks/useTitle';
-import { useDrink } from './Hooks/useDrink';
+
 
 
 function App() {
 const openFood = useOpenFood();
 const orders = useOrders();
-const drinks = useDrink();
 useTitle ({...openFood, ...orders});
 
   return (
 <>
   <GlobalStyle/>
-  <FoodDialog {...openFood} {...orders} {...drinks}/>
+  <FoodDialog {...openFood} {...orders}/>
      <Navbar />  
      <Order {...orders} />
      {/* <Order /> */}
