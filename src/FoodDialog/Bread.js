@@ -15,6 +15,7 @@ cursor:pointer;
 
 const CheckboxLabel = styled.label`
 cursor:pointer;
+font-size:14px;
 `
 
 export function Bread({breads, checkBread}){

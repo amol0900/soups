@@ -16,6 +16,7 @@ cursor:pointer;
 
 const CheckboxLabel = styled.label`
 cursor:pointer;
+font-size:14px;
 `
 
 

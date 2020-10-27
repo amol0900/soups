@@ -19,7 +19,7 @@ width:300px;
 /* height:2000px; */
 position:fixed;
 top:75px;
-z-index:5;
+z-index:999;
 max-height: calc(100% - 100px);
 left: calc(50% - 150px);
 margin-top:0;
@@ -85,6 +85,7 @@ function FoodDialogContainer({openFood, setOpenFood, setOrders, orders}) {
     const quantity = useQuantity(openFood && openFood.quantity);
     const breads = useBreads(openFood.breads);
     const drinks = useDrinks(openFood.drinks);
+    const isEditing = openFood.index > - 1;
 
     function close() {
         setOpenFood();
@@ -96,7 +97,13 @@ function FoodDialogContainer({openFood, setOpenFood, setOrders, orders}) {
         quantity: quantity.value,
         breads: breads.breads,
         drinks: drinks.drinks
-        
+    }
+
+    function editOrder(newOrder){
+        const newOrders = [...orders];
+        newOrders[openFood.index] = order;
+        setOrders(newOrders);
+        close();
     }
 
     function addToOrder () {
@@ -124,8 +131,8 @@ function FoodDialogContainer({openFood, setOpenFood, setOrders, orders}) {
         </DialogContent>
 
         <DialogFooter>
-            <MyButton onClick={addToOrder}>
-                <p className="buttonText">Lägg till {/* {quantity.value} */} i varukorgen - {formatPrice(getPrice(order))}</p> 
+            <MyButton onClick={isEditing ? editOrder : addToOrder}>
+                <p className="buttonText">{isEditing ? `Uppdatera varukorgen`: `Lägg till i varukorgen`} {formatPrice(getPrice(order))}</p> 
             </MyButton>
         </DialogFooter>
     </Dialog>

@@ -2,6 +2,11 @@ import React from 'react';
 import styled from 'styled-components';
 import { formatPrice } from '../Data/FoodData';
 import { getPrice } from '../FoodDialog/FoodDialog';
+import { TiDelete } from 'react-icons/ti';
+import { AiTwotoneEdit } from 'react-icons/ai';
+import { buttonColor } from '../Styles/colors';
+
+
 
 /* const MyOrderStyled = styled.div`
 position:fixed;
@@ -23,8 +28,9 @@ justify-content:center;
 `
 
 const OrderContainer = styled.div`
-padding:10px 0px;
+padding:15px 0px;
 /* border-bottom: 1px solid #ccc; */
+border-bottom: 1px solid grey;
 `
 
 const PriceContainer = styled.div`
@@ -34,23 +40,56 @@ padding:10px 0px;
 const OrderItem = styled.div`
 padding: 10px 0px;
 display:grid;
-grid-template-columns:20px 150px 20px 60px;
+grid-template-columns:20px 170px 5px 60px;
 justify-content:space-between;
+font-size:14px;
 `
 
 const DetailItem = styled.div`
 color:gray;
 font-size:10px;
-padding: 0px 25px;
+padding-bottom:25px;
+padding-top:0px;
+display:grid;
+grid-template-columns:23px 170px 20px 60px; 
+
 `
 
-export function Order({ orders, setOrders }) {
+const EditItem = styled.div`
+color:gray;
+font-size:10px;
+/* padding-bottom:20px; */
+padding-top:0px;
+display:grid;
+grid-template-columns:23px 170px 35px 20px;
+
+`
+
+const PriceItem = styled.div`
+padding: 10px 0px;
+display:grid;
+grid-template-columns:20px 170px 5px 60px;
+justify-content:space-between;
+font-size:14px;
+text-align:right;
+`
+
+
+export function Order({ orders, setOrders, setOpenFood }) {
     const subtotal = orders.reduce((total, order) => {
         return total + getPrice(order);
     }, 0);
 
+
+
     const deliveryFee = 39;
     const total = subtotal + deliveryFee;
+
+    const deleteItem = index => {
+        const newOrders = [...orders];
+        newOrders.splice(index, 1);
+        setOrders(newOrders);
+    }
     
     return (
         <>
@@ -64,54 +103,69 @@ export function Order({ orders, setOrders }) {
                         {orders.map((order, index) => (
                             
                             <OrderContainer key={index}>
-                                <OrderItem>
+                                <OrderItem style={{paddingBottom: '0px', cursor:'pointer'}}>
                                     <div>{order.quantity}</div>
                                     <div>{order.name}</div>
                                     <div></div>
+                                    
                                     <div>{formatPrice(getPrice(order))}</div>
                                 </OrderItem>
                                 <DetailItem>
+                                    <div></div>
                                     <div>{order.breads
                                         .filter(b => b.checked)
                                         .map(bread => bread.name)
-                                    }</div>
-
-                                </DetailItem>
-                                <OrderItem>
-                                    <div>{order.drinks.filter(d => d.checked).length === 0 ? null : order.drinks.filter(d => d.checked).length}</div>
-                                    <div>{order.drinks.filter(d => d.checked).map(drink => drink.name)}</div>
+                                    }, {order.drinks.filter(d => d.checked).map(drink => drink.name)}
+                                     ({order.drinks.filter(d => d.checked).map(drink => formatPrice(drink.price))}) </div>
+{/*                                     <div>{order.drinks.filter(d => d.checked).length === 0 ? null
+                                     : order.drinks.filter(d => d.checked).length}</div> */}
                                     <div></div>
-                                    <div>{order.drinks.filter(d => d.checked).map(drink => formatPrice(drink.price))}
+                                     <div></div>
+                                </DetailItem>
+                                     <EditItem>
+                                         <div></div>
+                                        <div style={{
+                                    cursor: 'pointer',
+                                    color:'#9AB54A'
+                                    }} onClick={() => {setOpenFood({...order, index})
+                                    }}>
+                                    <AiTwotoneEdit  style={{width:'17px', height:'17px'}}/>
                                     </div>
-                                </OrderItem>
+                                    <div></div>
+                                     <div style={{
+                                    cursor: 'pointer',
+                                    color:'red'
+                                    }} onClick={() => {deleteItem(index)}}>
+                                    <TiDelete style={{width:'17px', height:'17px'}}/>
+                                    </div>
+                                     </EditItem>
                             </OrderContainer>
 
                         ))}
                         <PriceContainer>
-                            <OrderItem>
-                                <div />
+                            <PriceItem>
                                 <div>Delsumma</div>
                                 <div />
                                 <div>
-                                    {formatPrice(subtotal)}
+                                {formatPrice(subtotal)}
                                 </div>
-                            </OrderItem>
-                            <OrderItem>
-                                <div />
+                            </PriceItem>
+                            <PriceItem>
+                              
                                 <div>Leveransavgift</div>
                                 <div />
                                 <div>
                                     {formatPrice(deliveryFee)}
                                 </div>
-                            </OrderItem>
-                            <OrderItem>
-                                <div />
+                            </PriceItem>
+                            <PriceItem>
+                                
                                 <div><span className="bold">Totalbelopp</span></div>
                                 <div />
                                 <div>
                                     <span className="bold">{formatPrice(total)}</span>
                                 </div>
-                            </OrderItem>
+                            </PriceItem>
                         </PriceContainer>
                     </OrderContent>
                 )}

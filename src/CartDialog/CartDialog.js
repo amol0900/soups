@@ -9,7 +9,7 @@ import {Drink} from '../FoodDialog/Drink';
 import {useBreads} from '../Hooks/useBreads';
 import {useDrinks} from '../Hooks/useDrinks';
 import { Order } from  '../Order/Order'
-
+import { useOpenFood } from '../Hooks/useOpenFood';
 
 
 const Dialog = styled.div`
@@ -24,6 +24,9 @@ z-index:5;
 max-height: calc(100% - 100px);
 left: calc(50% - 150px);
 margin-top:0;
+
+
+
 `
 const DialogShadow = styled.div`
 position:fixed;
@@ -62,6 +65,7 @@ box-shadow: 0px 2px 20px 0px grey;
 height:60px;
 
 `
+
  const pricePerDrink = 25;
 
 export function getPrice(order){
@@ -81,10 +85,11 @@ function hasBread(food) {
     return food.section === "soup";
   }
  
-function CartDialogContainer({openCart, setOpenCart, setOrders, orders}) {
+function CartDialogContainer({openCart, setOpenCart, setOrders, orders, setOpenFood}) {
      const quantity = useQuantity(openCart && openCart.quantity);
     const breads = useBreads(openCart.breads);
     const drinks = useDrinks(openCart.drinks);
+    const openFood = useOpenFood();
 
     function close() {
         setOpenCart();
@@ -96,20 +101,19 @@ function CartDialogContainer({openCart, setOpenCart, setOrders, orders}) {
         quantity: quantity.value,
         breads: breads.breads,
         drinks: drinks.drinks
-        
     }
 
     function addToOrder () {
         setOrders([...orders, order])
         close();
     }
- 
+    
 
     return (
      <>
         <DialogShadow onClick={close} />
         <Dialog>
-         <Order orders={orders} setOrders={setOrders}/>
+         <Order {...openFood} orders={orders} setOrders={setOrders} setOpenFood={setOpenFood} />
     </Dialog>
     </>
     );

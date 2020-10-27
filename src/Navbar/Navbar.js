@@ -50,7 +50,7 @@ top:65%;
 left:52%;
 font-weight:bold;
 transform: translate(-50%, -50%);
-font-size:17px; 
+font-size:16px; 
 `
 
 
@@ -65,7 +65,8 @@ export function Navbar({ onClick, orders, setOrders } ){
         <div></div>
         <div></div>
         <Logo><img src="/img/LogoN.png" alt="logo" className="logo" /></Logo>
-        <Cart>{orders.length === 0 ? <img src="/img/gsoup.png" alt="soup" className="soup" onClick={() => onClick()}/> : <img src="/img/soup.png" alt="soup" className="soup" onClick={() => onClick()}/>}
+        <Cart>{orders.length === 0 ? <img src="/img/gsoup.png" alt="soup" className="soup" onClick={() => onClick()}/> 
+        : <img src="/img/soup.png" alt="soup" className="soup" onClick={() => onClick()}/>}
         <Number onClick={() => onClick()}>{orders.length <= 0 ? null : orders.length}</Number></Cart>
     
     </NavbarStyled>;

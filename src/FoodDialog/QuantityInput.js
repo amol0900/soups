@@ -1,7 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
-import {useState} from 'react';
-import {mainColor} from '../Styles/colors';
+import { useState } from 'react';
+import { mainColor }  from '../Styles/colors';
+import { AiFillPlusCircle, AiFillMinusCircle, AiOutlineMinusCircle, AiOutlinePlusCircle } from 'react-icons/ai';
+
 
 const QuantityInputStyled = styled.input`
 font-size: 14px;
@@ -18,26 +20,24 @@ height:24px;
 `
 
 const IncrementButton = styled.div`
-  width:15px;
-  height:15px;
+/*   width:15px;
+  height:15px; */
   color: #656565;
-  font-size: 15px;
-  font-weight:bold;
-  text-align: center;
+ /*  font-size: 15px;
+  font-weight:bold; */
+  text-align: center; 
   cursor: pointer;
-  line-height: 18px;
+  /* line-height: 18px; */
   /* margin: 0px 10px; */
-  border-radius:50px;
-  border: 1px solid #656565;
+/*   border-radius:50px;
+  border: 1px solid #656565; */
   ${({ disabled }) =>
     disabled &&
     `opacity: 0.5; 
      pointer-events: none; 
      `}
   &:hover {
-    background-color: rgba(154, 181, 74);
-    color:white;
-    border: 1px solid rgba(154, 181, 74);};
+    color:green;};
   }
 `;
 
@@ -48,13 +48,13 @@ export function QuantityInput({quantity}){
         {/* <div>Quantity:</div> */}
         <IncrementButton onClick={() => {
           quantity.setValue(quantity.value - 1);
-        }} disabled={quantity.value === 1}>-</IncrementButton>
+        }} disabled={quantity.value === 1}><AiOutlineMinusCircle style={{width: '17px', height: '17px'}}/></IncrementButton>
 
         <QuantityInputStyled {...quantity}/>
 
         <IncrementButton onClick={() => {
           quantity.setValue(quantity.value + 1);
-        }}>+</IncrementButton>
+        }}><AiOutlinePlusCircle style={{width: '17px', height: '17px'}}/></IncrementButton>
     </IncrementContainer>
     );
 }

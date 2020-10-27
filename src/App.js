@@ -23,7 +23,7 @@ useTitle ({...openFood, ...orders});
 <>
   <GlobalStyle/>
   <FoodDialog {...openFood} {...orders}/>
-  <CartDialog {...openCart} {...orders}/>
+  <CartDialog {...openCart} {...orders} {...openFood}/>
      <Navbar onClick={() => openCart.setOpenCart(true)} {...orders}/>  
      {/* <Order {...orders} /> */}
      {/* <Order /> */}
