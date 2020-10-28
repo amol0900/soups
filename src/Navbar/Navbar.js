@@ -40,6 +40,11 @@ cursor:pointer;
 align-self:center;
 position: relative;
 text-align: center;
+${({ disabled }) =>
+disabled &&
+`opacity: 0.5; 
+ pointer-events: none; 
+ `}
 
 `
 const Number = styled.div`
@@ -65,7 +70,7 @@ export function Navbar({ onClick, orders, setOrders } ){
         <div></div>
         <div></div>
         <Logo><img src="/img/LogoN.png" alt="logo" className="logo" /></Logo>
-        <Cart>{orders.length === 0 ? <img src="/img/gsoup.png" alt="soup" className="soup" onClick={() => onClick()}/> 
+        <Cart disabled={orders.length === 0}>{orders.length === 0 ? <img src="/img/gsoup.png" alt="soup" className="soup" onClick={() => onClick() }/> 
         : <img src="/img/soup.png" alt="soup" className="soup" onClick={() => onClick()}/>}
         <Number onClick={() => onClick()}>{orders.length <= 0 ? null : orders.length}</Number></Cart>
     

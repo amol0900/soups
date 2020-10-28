@@ -46,9 +46,8 @@ export function QuantityInput({quantity}){
     return (
     <IncrementContainer>
         {/* <div>Quantity:</div> */}
-        <IncrementButton onClick={() => {
-          quantity.setValue(quantity.value - 1);
-        }} disabled={quantity.value === 1}><AiOutlineMinusCircle style={{width: '17px', height: '17px'}}/></IncrementButton>
+        <IncrementButton onClick={() => {quantity.setValue(quantity.value - 1);}} disabled={quantity.value === 1}>
+          <AiOutlineMinusCircle style={{width: '17px', height: '17px'}}/></IncrementButton>
 
         <QuantityInputStyled {...quantity}/>
 

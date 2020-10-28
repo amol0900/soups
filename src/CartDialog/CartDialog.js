@@ -113,7 +113,7 @@ function CartDialogContainer({openCart, setOpenCart, setOrders, orders, setOpenF
      <>
         <DialogShadow onClick={close} />
         <Dialog>
-         <Order {...openFood} orders={orders} setOrders={setOrders} setOpenFood={setOpenFood} />
+         <Order closeMe={() => close()} {...openFood} orders={orders} setOrders={setOrders} setOpenFood={setOpenFood} />
     </Dialog>
     </>
     );
