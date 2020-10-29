@@ -10,21 +10,21 @@ import { useOpenFood } from './Hooks/useOpenFood';
 import { useOpenCart } from './Hooks/useOpenCart';
 import { useOrders } from './Hooks/useOrders';
 import { useTitle } from './Hooks/useTitle';
-
-
+import {  useAuthentication } from './Hooks/useAuthentication';
 
 function App() {
 const openFood = useOpenFood();
 const openCart = useOpenCart();
 const orders = useOrders();
+const auth = useAuthentication();
 useTitle ({...openFood, ...orders});
 
   return (
 <>
   <GlobalStyle/>
   <FoodDialog {...openFood} {...orders}/>
-  <CartDialog {...openCart} {...orders} {...openFood}/>
-     <Navbar onClick={() => openCart.setOpenCart(true)} {...orders}/>  
+  <CartDialog {...openCart} {...orders} {...openFood} {...auth}/>
+     <Navbar onClick={() => openCart.setOpenCart(true)} {...orders} {...auth}/>  
      {/* <Order {...orders} /> */}
      {/* <Order /> */}
     <Menu {...openFood} />

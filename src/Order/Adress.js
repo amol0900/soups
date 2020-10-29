@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import { MyButton } from '../Menu/FoodGrid';
 import { formatPrice } from '../Data/FoodData';
 import { getPrice } from '../FoodDialog/FoodDialog';
 import { TiDelete } from 'react-icons/ti';
@@ -10,9 +9,6 @@ import ProgressBar from "./progress-bar.component";
 import { AiFillShopping } from 'react-icons/ai';
 
 
-const database = window.firebase.database();
-
-
 const OrderContent = styled.div`
 padding:20px;
 height:100%;
@@ -20,7 +16,7 @@ overflow:auto;
 color:#4E4E4E;
 `
 
-const OrderTitle = styled.div`
+const OrderTitle=styled.div`
 display:flex;
 justify-content:center;
 padding-bottom:30px;
@@ -73,47 +69,17 @@ justify-content:space-between;
 font-size:14px;
 text-align:right;
 `
-const Wizard = styled.div`
+const Wizard=styled.div`
 `
-const WizardItems = styled.div`
+const WizardItems=styled.div`
 width:25px;
 height:25px;
 color:#9AB54A;
 `
 
 const testData = [
-    { bgcolor: "#9AB54A", completed: 33 },
-];
-
-function sendOrder(orders, { email, displayName }) {
-    var newOrderRef = database.ref("orders").push();
-    const newOrders = orders.map(order => {
-      return Object.keys(order).reduce((acc, orderKey) => {
-        if (!order[orderKey]) {
-          // undefined value
-          return acc;
-        }
-        if (orderKey === "breads" || orderKey === "drinks") {
-          return {
-            ...acc,
-            [orderKey]: order[orderKey]
-            .filter(({ checked }) => checked)
-            .map(({ name }) => name)
-          };
-        }
-        return {
-          ...acc,
-          [orderKey]: order[orderKey]
-        };
-      }, {});
-    });
-    newOrderRef.set({
-      order: newOrders,
-      email,
-      displayName
-    });
-  }
- 
+    { bgcolor: "#9AB54A", completed: 66 },
+  ];
 
 export function Order({ orders, setOrders, setOpenFood, closeMe, login, loggedIn }) {
     const subtotal = orders.reduce((total, order) => {
@@ -130,31 +96,31 @@ export function Order({ orders, setOrders, setOpenFood, closeMe, login, loggedIn
         newOrders.splice(index, 1);
         setOrders(newOrders);
     }
-
+    
     return (
         <>
             {orders.length === 0 ? (
                 <OrderContent>Your order is empty</OrderContent>
-
+                
             ) : (
                     <OrderContent>
                         <OrderContainer>
-                            <OrderTitle><h1 style={{ color: '#656565' }}>Din varukorg</h1></OrderTitle>
+                            <OrderTitle><h1 style={{color:'#656565'}}>Leveransinformation</h1></OrderTitle>
                             <Wizard>
-                                <WizardItems><AiFillShopping style={{ width: '25px', height: '25px' }} /></WizardItems>
-                                {testData.map((item, idx) => (
-                                    <ProgressBar key={idx} bgcolor={item.bgcolor} completed={item.completed} />
-                                ))}
+                                <WizardItems><AiFillShopping style={{width:'25px', height:'25px'}} /></WizardItems>
+                            {testData.map((item, idx) => (
+                                <ProgressBar key={idx} bgcolor={item.bgcolor} completed={item.completed} />
+                            ))}
                             </Wizard>
                         </OrderContainer>{" "}
                         {orders.map((order, index) => (
-
+                            
                             <OrderContainer key={index}>
-                                <OrderItem style={{ paddingBottom: '0px', cursor: 'pointer' }}>
+                                <OrderItem style={{paddingBottom: '0px', cursor:'pointer'}}>
                                     <div>{order.quantity}</div>
                                     <div>{order.name}</div>
                                     <div></div>
-
+                                    
                                     <div>{formatPrice(getPrice(order))}</div>
                                 </OrderItem>
                                 <DetailItem>
@@ -163,30 +129,29 @@ export function Order({ orders, setOrders, setOpenFood, closeMe, login, loggedIn
                                         .filter(b => b.checked)
                                         .map(bread => bread.name)
                                     } {" "} {order.drinks.filter(d => d.checked).map(drink => drink.name)}
-                                        {" "}{order.drinks.filter(d => d.checked).map(drink => formatPrice(drink.price))} </div>
-                                    {/*                                     <div>{order.drinks.filter(d => d.checked).length === 0 ? null
+                                     {" "}{order.drinks.filter(d => d.checked).map(drink => formatPrice(drink.price))} </div>
+{/*                                     <div>{order.drinks.filter(d => d.checked).length === 0 ? null
                                      : order.drinks.filter(d => d.checked).length}</div> */}
                                     <div></div>
-                                    <div></div>
+                                     <div></div>
                                 </DetailItem>
-                                <EditItem>
-                                    <div></div>
-                                    <div style={{
-                                        cursor: 'pointer',
-                                        color: '#9AB54A'
-                                    }} onClick={() => {
-                                        closeMe(); setOpenFood({ ...order, index })
+                                     <EditItem>
+                                         <div></div>
+                                        <div style={{
+                                    cursor: 'pointer',
+                                    color:'#9AB54A'
+                                    }} onClick={() => { closeMe(); setOpenFood({...order, index})
                                     }}>
-                                        <AiTwotoneEdit style={{ width: '20px', height: '20px' }} />
+                                    <AiTwotoneEdit  style={{width:'20px', height:'20px'}}/>
                                     </div>
                                     <div></div>
-                                    <div style={{
-                                        cursor: 'pointer',
-                                        color: 'red'
-                                    }} onClick={() => { deleteItem(index) }} >
-                                        <TiDelete style={{ width: '20px', height: '20px' }} />
+                                     <div style={{
+                                    cursor: 'pointer',
+                                    color:'red'
+                                    }} onClick={() => {deleteItem(index)}} >
+                                    <TiDelete style={{width:'20px', height:'20px'}}/>
                                     </div>
-                                </EditItem>
+                                     </EditItem>
                             </OrderContainer>
 
                         ))}
@@ -195,11 +160,11 @@ export function Order({ orders, setOrders, setOpenFood, closeMe, login, loggedIn
                                 <div>Delsumma</div>
                                 <div />
                                 <div>
-                                    {formatPrice(subtotal)}
+                                {formatPrice(subtotal)}
                                 </div>
                             </PriceItem>
                             <PriceItem>
-
+                              
                                 <div>Leveransavgift</div>
                                 <div />
                                 <div>
@@ -207,7 +172,7 @@ export function Order({ orders, setOrders, setOpenFood, closeMe, login, loggedIn
                                 </div>
                             </PriceItem>
                             <PriceItem>
-
+                                
                                 <div><span className="bold">Totalbelopp</span></div>
                                 <div />
                                 <div>
@@ -215,16 +180,7 @@ export function Order({ orders, setOrders, setOpenFood, closeMe, login, loggedIn
                                 </div>
                             </PriceItem>
                         </PriceContainer>
-                        <MyButton onClick={() => {
-                            if (loggedIn) {
-                                sendOrder(orders, loggedIn);
-                            } else {
-                                login();
-                            }
 
-                        }}>
-                            <p className="buttonText">Beställ</p>
-                        </MyButton>
                     </OrderContent>
                 )}
         </>

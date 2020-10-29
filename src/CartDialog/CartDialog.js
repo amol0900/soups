@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import { MyButton} from '../Menu/FoodGrid';
 import { formatPrice } from '../Data/FoodData';
 import { QuantityInput } from '../FoodDialog/QuantityInput';
 import { useQuantity } from '../Hooks/useQuantity';
@@ -10,6 +9,14 @@ import {useBreads} from '../Hooks/useBreads';
 import {useDrinks} from '../Hooks/useDrinks';
 import { Order } from  '../Order/Order'
 import { useOpenFood } from '../Hooks/useOpenFood';
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    Link
+  } from "react-router-dom";
+  import {  useAuthentication } from '../Hooks/useAuthentication';
+
 
 
 const Dialog = styled.div`
@@ -85,11 +92,12 @@ function hasBread(food) {
     return food.section === "soup";
   }
  
-function CartDialogContainer({openCart, setOpenCart, setOrders, orders, setOpenFood}) {
+function CartDialogContainer({openCart, setOpenCart, setOrders, orders, setOpenFood, login, loggedIn}) {
      const quantity = useQuantity(openCart && openCart.quantity);
     const breads = useBreads(openCart.breads);
     const drinks = useDrinks(openCart.drinks);
     const openFood = useOpenFood();
+    const auth = useAuthentication();
 
     function close() {
         setOpenCart();
@@ -113,7 +121,8 @@ function CartDialogContainer({openCart, setOpenCart, setOrders, orders, setOpenF
      <>
         <DialogShadow onClick={close} />
         <Dialog>
-         <Order closeMe={() => close()} {...openFood} orders={orders} setOrders={setOrders} setOpenFood={setOpenFood} />
+         <Order closeMe={() => close()} {...openFood} orders={orders} setOrders={setOrders} setOpenFood={setOpenFood} {...auth} />
+
     </Dialog>
     </>
     );
@@ -123,3 +132,12 @@ function CartDialogContainer({openCart, setOpenCart, setOrders, orders, setOpenF
 export function CartDialog(props){
     return (props.openCart) ?  <CartDialogContainer {...props} /> : null; 
 }
+
+{/* <MyButton onClick={() => {
+    if (loggedIn) {
+        console.log('logged in')
+    } else {
+        login();
+    }
+
+}}> */}

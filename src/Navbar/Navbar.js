@@ -2,12 +2,13 @@ import React from 'react';
 import styled from 'styled-components';
 import { mainColor } from '../Styles/colors';
 import {useEffect} from'react';
+import { FaRegUserCircle } from 'react-icons/fa';
 
 
 const NavbarStyled = styled.div`
 background-color: white; 
 display:grid;
-grid-template-columns: 1fr 4fr 5fr 1fr;
+grid-template-columns: 6fr 4fr 2fr 1fr;
  position: -webkit-sticky;
 position:sticky; 
 top:0;
@@ -57,9 +58,15 @@ font-weight:bold;
 transform: translate(-50%, -50%);
 font-size:16px; 
 `
+const UserStatus = styled.div`
+font-size:14px;
+align-self:center;
+`
+const LoginButton = styled.span`
+cursor:pointer;
+`
 
-
-export function Navbar({ onClick, orders, setOrders } ){
+export function Navbar({ onClick, orders, setOrders, login, loggedIn, logout }){
 
    /*  function cartColor() {
        return orders.length === 0 ? <img src="/img/soup.png" alt="soup" className="soup" onClick={() => onClick()}/> : <img src="/img/gsoup.png" alt="soup" className="soup" onClick={() => onClick()}/>
@@ -67,9 +74,24 @@ export function Navbar({ onClick, orders, setOrders } ){
 
 
     return <NavbarStyled>  
-        <div></div>
+
         <div></div>
         <Logo><img src="/img/LogoN.png" alt="logo" className="logo" /></Logo>
+        <UserStatus>
+            {loggedIn !== 'loading' ? (
+            <>
+            <FaRegUserCircle /> {loggedIn ? `Hej ${loggedIn.displayName}.` : ""} 
+            
+            {loggedIn ? (
+                <LoginButton onClick={logout}>Logga ut</LoginButton>
+            ) : (
+                <LoginButton onClick={login}> Logga in / Registrera</LoginButton>
+                )}
+                </>
+                ) : (
+                    "Laddar..."
+                )}
+        </UserStatus>
         <Cart disabled={orders.length === 0}>{orders.length === 0 ? <img src="/img/gsoup.png" alt="soup" className="soup" onClick={() => onClick() }/> 
         : <img src="/img/soup.png" alt="soup" className="soup" onClick={() => onClick()}/>}
         <Number onClick={() => onClick()}>{orders.length <= 0 ? null : orders.length}</Number></Cart>
@@ -77,3 +99,7 @@ export function Navbar({ onClick, orders, setOrders } ){
     </NavbarStyled>;
 }
 {/* <img src="/img/soup.png" alt="soup" className="soup" onClick={() => onClick()}/> */}
+
+/* ${loggedIn.displayName} */
+
+{/* <LoginButton onClick={logout}>Logga ut</LoginButton> */}
