@@ -7,6 +7,7 @@ import {formatPrice} from '../Data/FoodData';
 const MenuStyled = styled.div`
 display:flex;
 justify-content:center;
+background-color:rgb(243,246,246);
  /* margin-left:50px;  */
 
 @media screen and (max-width: 500px) { 
@@ -49,3 +50,5 @@ export function Menu({setOpenFood}) {
                 ))}
     </MenuStyled>
 }
+
+export default Menu;

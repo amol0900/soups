@@ -11,6 +11,7 @@ width: 24px;
 text-align:center;
 border:none;
 outline:none;
+background-color:#f3f6f6;
 `
 
 const IncrementContainer = styled.div`

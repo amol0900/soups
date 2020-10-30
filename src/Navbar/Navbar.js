@@ -3,34 +3,29 @@ import styled from 'styled-components';
 import { mainColor } from '../Styles/colors';
 import {useEffect} from'react';
 import { FaRegUserCircle } from 'react-icons/fa';
+import { useLocalStorage } from '../Hooks/useLocalStorage';
+import { MdLocationOn } from 'react-icons/md';
+
 
 
 const NavbarStyled = styled.div`
 background-color: white; 
 display:grid;
-grid-template-columns: 6fr 4fr 2fr 1fr;
- position: -webkit-sticky;
+grid-template-columns:5fr 3fr 2fr 1fr;
+position: -webkit-sticky;
 position:sticky; 
 top:0;
-/* height:120px; */
-border-bottom: 1px solid #ccc;
-margin-left:50px;
-margin-right:50px;
 padding-bottom:20px;
+width:100%;
 
 @media screen and (max-width: 500px) { 
     display:flex;
     flex-direction:row;
     justify-content:space-between;
+    /* position:relative; */
    }
 
 `
-
-/* const Wrapper=styled.div`
-display:flex;
-justify-content:space-between;
-flex-direction:row;
-` */
 
 const Logo=styled.div`
 
@@ -67,16 +62,13 @@ cursor:pointer;
 `
 
 export function Navbar({ onClick, orders, setOrders, login, loggedIn, logout }){
-
-   /*  function cartColor() {
-       return orders.length === 0 ? <img src="/img/soup.png" alt="soup" className="soup" onClick={() => onClick()}/> : <img src="/img/gsoup.png" alt="soup" className="soup" onClick={() => onClick()}/>
-    } */
+    const [adress, setAdress] = useLocalStorage('adress', 'Ange din adress');
 
 
     return <NavbarStyled>  
 
-        <div></div>
-        <Logo><img src="/img/LogoN.png" alt="logo" className="logo" /></Logo>
+<div></div>
+        <Logo><img src="/img/LogoP.png" alt="logo" className="logo" /></Logo>
         <UserStatus>
             {loggedIn !== 'loading' ? (
             <>
@@ -93,7 +85,7 @@ export function Navbar({ onClick, orders, setOrders, login, loggedIn, logout }){
                 )}
         </UserStatus>
         <Cart disabled={orders.length === 0}>{orders.length === 0 ? <img src="/img/gsoup.png" alt="soup" className="soup" onClick={() => onClick() }/> 
-        : <img src="/img/soup.png" alt="soup" className="soup" onClick={() => onClick()}/>}
+        : <img src="/img/soupP.svg" alt="soup" className="soup" onClick={() => onClick()}/>}
         <Number onClick={() => onClick()}>{orders.length <= 0 ? null : orders.length}</Number></Cart>
     
     </NavbarStyled>;

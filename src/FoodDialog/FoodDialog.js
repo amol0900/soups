@@ -11,20 +11,26 @@ import {useDrinks} from '../Hooks/useDrinks';
 
 
 
-const Dialog = styled.div`
+export const Dialog = styled.div`
 display:flex;
 flex-direction:column;
-background-color:white;
+background-color:#f3f6f6;
 width:300px;
-/* height:2000px; */
 position:fixed;
 top:75px;
-z-index:999;
+z-index:5;
+min-height: calc(100% - 100px);
 max-height: calc(100% - 100px);
 left: calc(50% - 150px);
 margin-top:0;
+
+/* @media screen and (max-width: 500px) { 
+    width:100vw;
+    left:0%;
+    height:100vh;
+    } */
 `
-const DialogShadow = styled.div`
+export const DialogShadow = styled.div`
 position:fixed;
 width:100%;
 height:100%;
@@ -50,15 +56,16 @@ padding-bottom:0px;
 margin-bottom:0px;
 `
 
-const DialogContent = styled.div`
+export const DialogContent = styled.div`
 overflow:auto;
+height:100vh;
 min-height:100px;
 padding:0px 24px;
 padding-bottom:80px;
 `
-const DialogFooter = styled.div`
-box-shadow: 0px 2px 20px 0px grey;
-height:60px;
+export const DialogFooter = styled.div`
+/* box-shadow: 0px 2px 20px 0px grey; */
+margin-bottom:0px;
 
 `
 const pricePerDrink = 25;
@@ -81,7 +88,7 @@ function hasBread(food) {
     return food.section === "soup";
   }
 
-function FoodDialogContainer({openFood, setOpenFood, setOrders, orders}) {
+function FoodDialogContainer({onClick, openFood, setOpenFood, setOrders, orders}) {
     const quantity = useQuantity(openFood && openFood.quantity);
     const breads = useBreads(openFood.breads);
     const drinks = useDrinks(openFood.drinks);
@@ -147,3 +154,4 @@ export function oldFoodDialog(props){
 export function FoodDialog(props){
     return (props.openFood) ?  <FoodDialogContainer {...props} /> : null; 
 }
+

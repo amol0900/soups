@@ -2,32 +2,40 @@ import React from 'react';
 import styled from 'styled-components';
 import { MyButton } from '../Menu/FoodGrid';
 import { formatPrice } from '../Data/FoodData';
-import { getPrice } from '../FoodDialog/FoodDialog';
+import { getPrice, Dialog, DialogFooter } from '../FoodDialog/FoodDialog';
 import { TiDelete } from 'react-icons/ti';
 import { AiTwotoneEdit } from 'react-icons/ai';
 import { buttonColor } from '../Styles/colors';
 import ProgressBar from "./progress-bar.component";
 import { AiFillShopping } from 'react-icons/ai';
+import { MdLocationOn } from 'react-icons/md';
+import { GoCreditCard } from 'react-icons/go';
+import { FaLongArrowAltRight} from 'react-icons/fa';
+
+
 
 
 const database = window.firebase.database();
 
 
-const OrderContent = styled.div`
-padding:20px;
-height:100%;
+
+export const OrderContent = styled.div`
+padding:25px;
+height:100vh;
 overflow:auto;
 color:#4E4E4E;
+background-color:#f3f6f6;
 `
 
-const OrderTitle = styled.div`
+export const OrderTitle = styled.div`
 display:flex;
 justify-content:center;
 padding-bottom:30px;
 `
 
-const OrderContainer = styled.div`
+export const OrderContainer = styled.div`
 padding:15px 0px;
+font-size:14px;
 
 `
 
@@ -46,11 +54,11 @@ color:#4E4E4E;
 
 const DetailItem = styled.div`
 color:gray;
-font-size:10px;
+font-size:11px;
 padding-bottom:25px;
 padding-top:0px;
 display:grid;
-grid-template-columns:23px 170px 20px 60px; 
+grid-template-columns:20px 170px 20px 60px; 
 
 `
 
@@ -60,7 +68,7 @@ font-size:10px;
 /* padding-bottom:20px; */
 padding-top:0px;
 display:grid;
-grid-template-columns:23px 170px 35px 20px;
+grid-template-columns:20px 170px 35px 20px;
 border-bottom: 1px solid #ccc;
 padding-bottom:25px;
 
@@ -73,54 +81,42 @@ justify-content:space-between;
 font-size:14px;
 text-align:right;
 `
-const Wizard = styled.div`
+export const Wizard = styled.div`
+
 `
-const WizardItems = styled.div`
-width:25px;
-height:25px;
-color:#9AB54A;
+export const WizardItems = styled.div`
+color:#91DBB7;
+padding-bottom:20px;
+display:flex;
+flex-direction:row;
+justify-content:space-between;
+align-items:center;
+margin-left:5px;
+margin-right:5px;
 `
 
 const testData = [
-    { bgcolor: "#9AB54A", completed: 33 },
+    { bgcolor: "#91DBB7", completed: 33 },
 ];
 
-function sendOrder(orders, { email, displayName }) {
-    var newOrderRef = database.ref("orders").push();
-    const newOrders = orders.map(order => {
-      return Object.keys(order).reduce((acc, orderKey) => {
-        if (!order[orderKey]) {
-          // undefined value
-          return acc;
-        }
-        if (orderKey === "breads" || orderKey === "drinks") {
-          return {
-            ...acc,
-            [orderKey]: order[orderKey]
-            .filter(({ checked }) => checked)
-            .map(({ name }) => name)
-          };
-        }
-        return {
-          ...acc,
-          [orderKey]: order[orderKey]
-        };
-      }, {});
-    });
-    newOrderRef.set({
-      order: newOrders,
-      email,
-      displayName
-    });
-  }
  
 
-export function Order({ orders, setOrders, setOpenFood, closeMe, login, loggedIn }) {
+export function Order({
+    openCart, 
+    setOpenCart, 
+    orders, setOrders, 
+    setOpenFood, 
+    closeMe,
+    setOpenAdressDialog })
+     {
     const subtotal = orders.reduce((total, order) => {
         return total + getPrice(order);
     }, 0);
 
-
+    function close() {
+        setOpenCart();
+    }
+    if (!openCart) return null;
 
     const deliveryFee = 39;
     const total = subtotal + deliveryFee;
@@ -134,14 +130,20 @@ export function Order({ orders, setOrders, setOpenFood, closeMe, login, loggedIn
     return (
         <>
             {orders.length === 0 ? (
+
                 <OrderContent>Your order is empty</OrderContent>
 
             ) : (
+                <Dialog>
                     <OrderContent>
                         <OrderContainer>
                             <OrderTitle><h1 style={{ color: '#656565' }}>Din varukorg</h1></OrderTitle>
                             <Wizard>
-                                <WizardItems><AiFillShopping style={{ width: '25px', height: '25px' }} /></WizardItems>
+                                <WizardItems>
+                                    <AiFillShopping style={{ width: '25px', height: '25px' }} />
+                                    <MdLocationOn style={{ width: '25px', height: '25px', color:'#9E9E9E'}} />
+                                    <GoCreditCard style={{ width: '25px', height: '25px', color:'#9E9E9E' }} />
+                                    </WizardItems>
                                 {testData.map((item, idx) => (
                                     <ProgressBar key={idx} bgcolor={item.bgcolor} completed={item.completed} />
                                 ))}
@@ -173,7 +175,7 @@ export function Order({ orders, setOrders, setOpenFood, closeMe, login, loggedIn
                                     <div></div>
                                     <div style={{
                                         cursor: 'pointer',
-                                        color: '#9AB54A'
+                                        color: '#91DBB7'
                                     }} onClick={() => {
                                         closeMe(); setOpenFood({ ...order, index })
                                     }}>
@@ -182,7 +184,7 @@ export function Order({ orders, setOrders, setOpenFood, closeMe, login, loggedIn
                                     <div></div>
                                     <div style={{
                                         cursor: 'pointer',
-                                        color: 'red'
+                                        color: '#e7002b'
                                     }} onClick={() => { deleteItem(index) }} >
                                         <TiDelete style={{ width: '20px', height: '20px' }} />
                                     </div>
@@ -215,18 +217,19 @@ export function Order({ orders, setOrders, setOpenFood, closeMe, login, loggedIn
                                 </div>
                             </PriceItem>
                         </PriceContainer>
-                        <MyButton onClick={() => {
-                            if (loggedIn) {
-                                sendOrder(orders, loggedIn);
-                            } else {
-                                login();
-                            }
 
-                        }}>
-                            <p className="buttonText">Beställ</p>
-                        </MyButton>
                     </OrderContent>
+                    <DialogFooter>
+                        <MyButton onClick={() => { /* close(); */
+                    setOpenAdressDialog(true);
+                }}>
+                            <p className="buttonText">Bekräfta adress</p> &nbsp;
+                             <FaLongArrowAltRight style={{color:'#242424', width:'20px', height:'20px'}}/></MyButton>
+                             </DialogFooter>
+                    </Dialog>
                 )}
+                
         </>
     );
 }
+
