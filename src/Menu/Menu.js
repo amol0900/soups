@@ -14,7 +14,11 @@ background-color:rgb(243,246,246);
     
     `
 
+    
+
 export function Menu({setOpenFood}) {
+
+    
 
     return <MenuStyled>
         {Object.entries(foods).map(([sectionName, foods], index) => (

@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components';
 import { MdLocationOn } from 'react-icons/md';
-import { useLocalStorage } from './Hooks/useLocalStorage';
+import { useLocalStorage } from '../Hooks/useLocalStorage';
 import { Link } from 'react-router-dom';
 
 
@@ -71,14 +71,23 @@ text-indent:15px;
 `
     
 
-export function Home({key, defaultValue}) {
+export function Home({}) {
     const [adress, setAdress] = useLocalStorage('adress');
+    const [showResults, setShowResults] = React.useState(false)
+    
 
     const something=(event)=> {
         if (event.keyCode === 13) {
-            window.scrollBy(0, 704);
-            
+            /* window.location.reload() */
+            scrollWin();
+            /* window.scrollBy(0, 704); */
         }}
+
+          function scrollWin() {
+            window.scrollBy(0, 704);
+        }
+        
+
 
     return <>
 <BodyWrapper>
@@ -99,7 +108,6 @@ export function Home({key, defaultValue}) {
     <MdLocationOn style={{ width: '20px', height: '20px', 
     position:'absolute', top:'10px', left:'7px'}} />
     </InputWrapper>
-   
     </ContentWrap>
     </Wrapper>
 </BodyWrapper>

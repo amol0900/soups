@@ -87,7 +87,7 @@ export function Navbar({ onClick, orders, setOrders, login, loggedIn, logout }){
         <Cart disabled={orders.length === 0}>{orders.length === 0 ? <img src="/img/gsoup.png" alt="soup" className="soup" onClick={() => onClick() }/> 
         : <img src="/img/soupP.svg" alt="soup" className="soup" onClick={() => onClick()}/>}
         <Number onClick={() => onClick()}>{orders.length <= 0 ? null : orders.length}</Number></Cart>
-    
+    <p>{adress}</p>
     </NavbarStyled>;
 }
 {/* <img src="/img/soup.png" alt="soup" className="soup" onClick={() => onClick()}/> */}

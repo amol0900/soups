@@ -59,6 +59,7 @@ const testData = [
 export function AdressDialog({openAdressDialog, setOpenAdressDialog, setOrders, loggedIn, displayName, openPayDialog, setOpenPayDialog}){
   const [adress, setAdress] = useLocalStorage('adress');
   const [name, setName] = useLocalStorage('namn', 'Skriv ditt namn' );
+  
  
   
   const payDialog = usePayDialog();

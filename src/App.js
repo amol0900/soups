@@ -17,9 +17,9 @@ import {SummaryDialog} from './Order/SummaryDialog';
 import { useAdressDialog } from './Hooks/useAdressDialog';
 import { usePayDialog } from './Hooks/usePayDialog';
 import { useSummaryDialog } from './Hooks/useSummaryDialog';
-import { Home } from './Home';
+import { Home } from './Order/Home'
 import { Menu } from './Menu/Menu';
-
+import { useLocalStorage } from './Hooks/useLocalStorage';
 
 
 
@@ -30,7 +30,7 @@ const orders = useOrders();
 const auth = useAuthentication();
 const payDialog = usePayDialog();
 const adressDialog = useAdressDialog();
-const summaryDialog = useSummaryDialog();
+const summaryDialog = useSummaryDialog();;
 
 useTitle ({...openFood, ...orders});
 
