@@ -131,7 +131,7 @@ export function Order({
         <>
             {orders.length === 0 ? (
 
-                <OrderContent>Your order is empty</OrderContent>
+                <OrderContent><OrderContainer><OrderTitle><h1 style={{ color: '#656565' }}>Din varukorg är tom</h1></OrderTitle></OrderContainer></OrderContent>
 
             ) : (
                 <Dialog>

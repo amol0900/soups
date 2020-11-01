@@ -17,9 +17,10 @@ import {SummaryDialog} from './Order/SummaryDialog';
 import { useAdressDialog } from './Hooks/useAdressDialog';
 import { usePayDialog } from './Hooks/usePayDialog';
 import { useSummaryDialog } from './Hooks/useSummaryDialog';
-import { Home } from './Order/Home'
+import { Home } from './Home'
 import { Menu } from './Menu/Menu';
 import { useLocalStorage } from './Hooks/useLocalStorage';
+import { AddressContext } from "./AddressContext";
 
 
 
@@ -30,16 +31,19 @@ const orders = useOrders();
 const auth = useAuthentication();
 const payDialog = usePayDialog();
 const adressDialog = useAdressDialog();
-const summaryDialog = useSummaryDialog();;
+const summaryDialog = useSummaryDialog();
+/* const local = useLocalStorage(); */
+const [adress, setAdress] = useLocalStorage('adress', '');
+
 
 useTitle ({...openFood, ...orders});
 
 
-  return (
-<>
+return (
 
+<AddressContext.Provider value={{ adress, setAdress }}>
   <GlobalStyle/>
-  <Home/>
+  <Home />
   <FoodDialog {...openFood} {...orders} />
   <CartDialog {...openCart} {...orders} {...openFood} {...auth} {...adressDialog} {...payDialog}/>
      <Navbar onClick={() => openCart.setOpenCart(true)} {...orders} {...auth}/>  
@@ -50,8 +54,9 @@ useTitle ({...openFood, ...orders});
     <AdressDialog {...adressDialog} {...orders} {...auth} {...payDialog}/>
     <PayDialog {...payDialog} {...summaryDialog} />
     <SummaryDialog {...summaryDialog} {...orders} {...auth} />
-</>
+    </AddressContext.Provider>
+
   );
-}
+};
 
 export default App;

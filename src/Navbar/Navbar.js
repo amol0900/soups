@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { mainColor } from '../Styles/colors';
-import {useEffect} from'react';
+import { useEffect } from 'react';
 import { FaRegUserCircle } from 'react-icons/fa';
 import { useLocalStorage } from '../Hooks/useLocalStorage';
 import { MdLocationOn } from 'react-icons/md';
@@ -27,7 +27,7 @@ width:100%;
 
 `
 
-const Logo=styled.div`
+const Logo = styled.div`
 
 `
 
@@ -37,8 +37,8 @@ align-self:center;
 position: relative;
 text-align: center;
 ${({ disabled }) =>
-disabled &&
-`opacity: 0.5; 
+        disabled &&
+        `opacity: 0.5; 
  pointer-events: none; 
  `}
 
@@ -61,37 +61,37 @@ const LoginButton = styled.span`
 cursor:pointer;
 `
 
-export function Navbar({ onClick, orders, setOrders, login, loggedIn, logout }){
+export function Navbar({ onClick, orders, setOrders, login, loggedIn, logout }) {
     const [adress, setAdress] = useLocalStorage('adress', 'Ange din adress');
 
 
-    return <NavbarStyled>  
+    return <NavbarStyled>
 
-<div></div>
+        <div></div>
         <Logo><img src="/img/LogoP.png" alt="logo" className="logo" /></Logo>
         <UserStatus>
             {loggedIn !== 'loading' ? (
-            <>
-            <FaRegUserCircle /> {loggedIn ? `Hej ${loggedIn.displayName}.` : ""} 
-            
-            {loggedIn ? (
-                <LoginButton onClick={logout}>Logga ut</LoginButton>
-            ) : (
-                <LoginButton onClick={login}> Logga in / Registrera</LoginButton>
-                )}
+                <>
+                    <FaRegUserCircle /> {loggedIn ? `Hej ${loggedIn.displayName}.` : ""}
+
+                    {loggedIn ? (
+                        <LoginButton onClick={logout}>Logga ut</LoginButton>
+                    ) : (
+                            <LoginButton onClick={login}> Logga in / Registrera</LoginButton>
+                        )}
                 </>
-                ) : (
+            ) : (
                     "Laddar..."
                 )}
         </UserStatus>
-        <Cart disabled={orders.length === 0}>{orders.length === 0 ? <img src="/img/gsoup.png" alt="soup" className="soup" onClick={() => onClick() }/> 
-        : <img src="/img/soupP.svg" alt="soup" className="soup" onClick={() => onClick()}/>}
-        <Number onClick={() => onClick()}>{orders.length <= 0 ? null : orders.length}</Number></Cart>
-    <p>{adress}</p>
+        <Cart disabled={orders.length === 0}>{orders.length === 0 ? <img src="/img/gsoup.png" alt="soup" className="soup" onClick={() => onClick()} />
+            : <img src="/img/soupP.svg" alt="soup" className="soup" onClick={() => onClick()} />}
+            <Number onClick={() => onClick()}>{orders.length <= 0 ? null : orders.length}</Number></Cart>
+        <p>{adress}</p>
     </NavbarStyled>;
 }
-{/* <img src="/img/soup.png" alt="soup" className="soup" onClick={() => onClick()}/> */}
+{/* <img src="/img/soup.png" alt="soup" className="soup" onClick={() => onClick()}/> */ }
 
 /* ${loggedIn.displayName} */
 
-{/* <LoginButton onClick={logout}>Logga ut</LoginButton> */}
+{/* <LoginButton onClick={logout}>Logga ut</LoginButton> */ }

@@ -1,9 +1,7 @@
-import React from 'react'
+import React, { useContext } from "react";
 import styled from 'styled-components';
 import { MdLocationOn } from 'react-icons/md';
-import { useLocalStorage } from '../Hooks/useLocalStorage';
-import { Link } from 'react-router-dom';
-
+import { AddressContext } from "./AddressContext";
 
 
 
@@ -63,6 +61,9 @@ border-radius:5px;
 outline:none;
 min-width:250px;
 text-indent:15px;
+&:focus::placeholder {
+    color:transparent;
+}
 
    @media screen and (max-width: 500px) { 
       font-size:14px;
@@ -72,8 +73,10 @@ text-indent:15px;
     
 
 export function Home({}) {
-    const [adress, setAdress] = useLocalStorage('adress');
+    /* const [adress, setAdress] = useLocalStorage('adress'); */
     const [showResults, setShowResults] = React.useState(false)
+    const { adress, setAdress } = useContext(AddressContext);
+    
     
 
     const something=(event)=> {
@@ -89,7 +92,7 @@ export function Home({}) {
         
 
 
-    return <>
+    return (
 <BodyWrapper>
     <Wrapper>
         <ContentWrap>
@@ -98,7 +101,8 @@ export function Home({}) {
     </BigLogo>
     <InputWrapper>
     <Adress value={adress}
-    placeholder='Ange adress'
+    onfocus={(e) => e.target.value=""}
+    placeholder='Ange din adress'
     onChange={e => {
         setAdress(e.target.value);
     }} 
@@ -111,7 +115,7 @@ export function Home({}) {
     </ContentWrap>
     </Wrapper>
 </BodyWrapper>
-    </>
+    )
 }
 
 export default Home;

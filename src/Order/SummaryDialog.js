@@ -183,7 +183,7 @@ export function SummaryDialog({ openAdressDialog,
 
 
             <DialogFooter>
-                /* <MyButton onClick={() => {
+                 <MyButton onClick={() => {
                     if (loggedIn) {
                         sendOrder(orders, loggedIn);
                     } else {
