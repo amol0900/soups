@@ -6,12 +6,13 @@ import { FaRegUserCircle } from 'react-icons/fa';
 import { useLocalStorage } from '../Hooks/useLocalStorage';
 import { MdLocationOn } from 'react-icons/md';
 import { AnimateOnChange } from 'react-animation'
+import { MyButton} from '../Menu/FoodGrid';
 
 
 const NavbarStyled = styled.div`
 background-color: white; 
 display:grid;
-grid-template-columns:5fr 2fr 2fr 2fr;
+grid-template-columns:4fr 3fr 1fr 1fr;
 position: -webkit-sticky;
 position:sticky; 
 top:0;
@@ -55,9 +56,9 @@ const UserStatus = styled.div`
 font-size:14px;
 align-self:center;
 `
-const LoginButton = styled.span`
+/* const LoginButton = styled.span`
 cursor:pointer;
-`
+` */
 
 export function Navbar({ onClick, orders, setOrders, login, loggedIn, logout }) {
     const [adress, setAdress] = useLocalStorage('adress', 'Ange din adress');
@@ -67,22 +68,20 @@ export function Navbar({ onClick, orders, setOrders, login, loggedIn, logout }) 
 
         <div></div>
         <Logo><img src="/img/LogoP.png" alt="logo" className="logo" /></Logo>
-        <div></div>
-{/*         <UserStatus>
+        
+        <UserStatus>
             {loggedIn !== 'loading' ? (
                 <>
-                    <FaRegUserCircle /> {loggedIn ? `Hej ${loggedIn.displayName}.` : ""}
-
                     {loggedIn ? (
-                        <LoginButton onClick={logout}>Logga ut</LoginButton>
+                        <MyButton onClick={logout}> <p className="buttonText">Logga ut</p></MyButton>
                     ) : (
-                            <LoginButton onClick={login}> Logga in / Registrera</LoginButton>
+                            null
                         )}
                 </>
             ) : (
                     "Laddar..."
                 )}
-        </UserStatus> */}
+        </UserStatus>
         <Cart disabled={orders.length === 0}>{orders.length === 0 ? <img src="/img/gsoup.png" alt="soup" className="soup" onClick={() => onClick()} />
             : <img src="/img/soupP.svg" alt="soup" className="soup" onClick={() => onClick()} />}
             <AnimateOnChange>

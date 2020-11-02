@@ -5,10 +5,7 @@ import { AddressContext } from "./AddressContext";
 import { DialogShadow } from './FoodDialog/FoodDialog';
 import { FcGoogle } from 'react-icons/fc';
 import styled, { keyframes } from 'styled-components';
-import { fadeIn, fadeOut } from 'react-animations';
-import { AnimateOnChange } from 'react-animation'
 
-const fader = keyframes`${fadeIn}`;
 /* const faderO = keyframes`${fadeOut}`; */
 
 
@@ -26,7 +23,7 @@ max-height: calc(100% - 100px);
 left: calc(50% - 500px);
 margin-top:0;
 background-image:url('/img/homeImgO.png');
-animation: 1s ${fader}; 
+
 
 @media screen and (max-width: 500px) { 
     display:flex;
@@ -135,7 +132,7 @@ cursor:pointer;
 
 `
 
-const GoogleButton = styled.div`
+export const GoogleButton = styled.div`
 cursor:pointer;
 background:white;
 display:flex;

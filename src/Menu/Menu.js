@@ -4,6 +4,7 @@ import { foods } from '../Data/FoodData';
 import { Food, FoodGrid, FoodLabel, FoodWrapper, MyButton} from './FoodGrid';
 import {formatPrice} from '../Data/FoodData';
 import { AiOutlineFieldTime } from 'react-icons/ai';
+import { MdLocalShipping } from 'react-icons/md';
 
 
 const MenuStyled = styled.div`
@@ -46,6 +47,15 @@ export function Menu({setOpenFood}) {
                 <p>{food.description}</p>
             <Wrapper>
                 <h2>{formatPrice(food.price)}</h2>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <Delivery>
+                <MdLocalShipping style={{width:'15px', height:'15px',marginRight:'3px'}}/> <p>39kr</p>
+                </Delivery>
                 <Delivery>
                 <AiOutlineFieldTime style={{width:'15px', height:'15px' /* color:'#91DBB7' */, marginRight:'3px'}}/> <p>25-30min</p>
                 </Delivery>

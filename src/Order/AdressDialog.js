@@ -16,6 +16,8 @@ import { AddressContext } from "../AddressContext";
 import { Exit, Button } from '../FoodDialog/FoodDialog';
 import { IoIosArrowBack, IoIosCloseCircle } from 'react-icons/io'
 
+import { FcGoogle } from 'react-icons/fc';
+
 
 export const YourName = styled.input`
 background:rgba(145, 219, 183, 0.3);
@@ -56,6 +58,8 @@ const Separator = styled.div`
 margin-top:30px;
 `
 
+
+
 /* const WizardItems=styled.div`
 display:flex;
 justify-content:center;
@@ -67,7 +71,7 @@ const testData = [
   { bgcolor: "#91DBB7", completed: 66 },
 ];
 
-export function AdressDialog({ openAdressDialog, setOpenAdressDialog, setOpenCart, setOrders, loggedIn, displayName, openPayDialog, setOpenPayDialog }) {
+export function AdressDialog({ openAdressDialog, setOpenAdressDialog, setOpenCart, setOrders, login, loggedIn, displayName, openPayDialog, setOpenPayDialog }) {
   /* const stored = localStorage.getItem(value);
   const [adress, setAdress] = useLocalStorage('adress'); */
   /* const [name, setName] = useLocalStorage('namn', 'Skriv ditt namn'); */
@@ -75,8 +79,8 @@ export function AdressDialog({ openAdressDialog, setOpenAdressDialog, setOpenCar
 
   function close() {
     setOpenAdressDialog();
-}
-if (!openAdressDialog) return null;
+  }
+  if (!openAdressDialog) return null;
 
 
   return openAdressDialog ? <>
@@ -84,11 +88,11 @@ if (!openAdressDialog) return null;
     <Dialog>
       <OrderContent >
         <Exit>
-        <IoIosArrowBack onClick={() => {
+          <IoIosArrowBack onClick={() => {
             close();
             setOpenCart(true);
-          }} style={{width:'20px', height:'20px'}} />
-          <IoIosCloseCircle onClick={close} style={{color:'#DB91AD'}}/>
+          }} style={{ width: '20px', height: '20px' }} />
+          <IoIosCloseCircle onClick={close} style={{ color: '#DB91AD' }} />
         </Exit>
         <OrderContainer >
           <OrderTitle><h1>Adress</h1></OrderTitle>
@@ -110,7 +114,7 @@ if (!openAdressDialog) return null;
           <span className="bold">Namn</span>
           <InputWrapper>
             <YourName value={loggedIn ? `${loggedIn.displayName}` : `${name}`}
-            placeholder="Skriv ditt namn"
+              placeholder="Skriv ditt namn"
               onChange={e => {
                 setName(e.target.value);
               }}
@@ -138,9 +142,11 @@ if (!openAdressDialog) return null;
             }} />
           </InputWrapper>
         </OrderContainer>
+
       </OrderContent>
       <DialogFooter>
-        <MyButton onClick={() => { close();
+        <MyButton onClick={() => {
+          close();
           setOpenPayDialog(true);
         }}>
           <p className="buttonText">Betalning</p> &nbsp;
