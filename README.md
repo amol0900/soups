@@ -1,3 +1,15 @@
+An implementation of an online delivery soup app with hooks and firebase, based on an UX study.
+
+Adobe XD prototype
+https://xd.adobe.com/view/6c03e00e-5288-4290-98cc-03948f8161d9-3950/
+
+More UX prepwork can be found in the project root.
+
+View site
+https://soupsbread.web.app/
+
+---
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
