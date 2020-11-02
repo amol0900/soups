@@ -27,6 +27,12 @@ border-radius:5px;
 outline:none;
 width:83%;
 text-indent:15px;
+::placeholder {
+  color:#222222;
+}
+&:focus::placeholder {
+  color:transparent;
+}
 `
 
 export const YourAdress = styled.input`
@@ -39,6 +45,12 @@ border-radius:5px;
 outline:none;
 width:83%;
 text-indent:15px;
+::placeholder {
+  color:#222222;
+}
+&:focus::placeholder {
+  color:transparent;
+}
 `
 const Separator = styled.div`
 margin-top:30px;
@@ -98,6 +110,7 @@ if (!openAdressDialog) return null;
           <span className="bold">Namn</span>
           <InputWrapper>
             <YourName value={loggedIn ? `${loggedIn.displayName}` : `${name}`}
+            placeholder="Skriv ditt namn"
               onChange={e => {
                 setName(e.target.value);
               }}
@@ -113,7 +126,7 @@ if (!openAdressDialog) return null;
           <span className="bold">Adress</span>
           <InputWrapper>
             <YourAdress value={adress}
-              placeholder=''
+              placeholder='Ange din adress'
               onChange={e => {
                 setAdress(e.target.value);
               }}
