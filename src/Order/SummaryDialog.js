@@ -1,23 +1,17 @@
-import React from 'react';
+import React, { useContext } from "react";
 import styled from 'styled-components';
 import { OrderContent, OrderContainer, OrderTitle, Wizard, WizardItems } from "../Order/Order";
-import ProgressBar from "./progress-bar.component";
 import { Dialog, DialogShadow, DialogFooter, getPrice } from '../FoodDialog/FoodDialog';
-import { AiFillShopping } from 'react-icons/ai';
-import { MdLocationOn } from 'react-icons/md';
-import { GoCreditCard } from 'react-icons/go';
-import { FaUserCircle } from 'react-icons/fa';
 import { useLocalStorage } from '../Hooks/useLocalStorage';
-import { InputWrapper } from '../Home';
+import { InputWrapper } from '../HomeDialog';
 import { FaLongArrowAltRight, FaCcVisa } from 'react-icons/fa';
 import { MyButton } from '../Menu/FoodGrid';
 import { formatPrice } from '../Data/FoodData';
 import { TiDelete } from 'react-icons/ti';
 import { AiTwotoneEdit } from 'react-icons/ai';
-
-
-
-
+import { AddressContext } from "../AddressContext";
+import { Exit, Button } from '../FoodDialog/FoodDialog';
+import { IoIosArrowBack, IoIosCloseCircle } from 'react-icons/io'
 
 
 
@@ -31,7 +25,7 @@ display:grid;
 grid-template-columns:20px 170px 5px 60px;
 justify-content:space-between;
 font-size:14px;
-color:#4E4E4E;
+color:#4e4e4e;
 `
 
 const DetailItem = styled.div`
@@ -58,11 +52,17 @@ padding-bottom:25px;
 const PriceItem = styled.div`
 padding: 10px 0px;
 display:grid;
-grid-template-columns:30px 170px 5px 60px;
+grid-template-columns:30px 170px 0px 60px;
 justify-content:space-between;
 align-items:center;
 font-size:14px;
-t`
+`
+
+export const Wrap = styled.div`
+background-color:/* rgba(145, 219, 183, 0.3) */ #F5F5F5;
+padding:10px 25px 10px;
+margin-bottom: 10px;
+`
 
 const database = window.firebase.database();
 
@@ -105,9 +105,15 @@ export function SummaryDialog({ openAdressDialog,
     setOpenPayDialog,
     openSummaryDialog,
     setOpenSummaryDialog,
-    closeMe, login }) {
-    const [adress, setAdress] = useLocalStorage('adress', 'Ange din adress');
-    const [name, setName] = useLocalStorage('namn', 'Skriv ditt namn');
+    closeMe, login, openConfirmDialog, setOpenConfirmDialog }) {
+
+    const { adress, name } = useContext(AddressContext);
+
+
+    function close() {
+        setOpenSummaryDialog();
+    }
+    if (!openSummaryDialog) return null;
 
 
     const subtotal = orders.reduce((total, order) => {
@@ -125,19 +131,24 @@ export function SummaryDialog({ openAdressDialog,
     }
 
 
-
     return openSummaryDialog ? <>
-        {/* <DialogShadow /> */}
+        <DialogShadow />
         <Dialog>
             <OrderContent>
-                <OrderContainer>
-                    <OrderTitle><h1 style={{ color: '#656565' }}>Din varukorg</h1></OrderTitle>
+                <Exit>
+                    <IoIosArrowBack onClick={() => {
+                        close();
+                        setOpenPayDialog(true);
+                    }} style={{width:'20px', height:'20px'}} />
+                    <IoIosCloseCircle onClick={close} style={{color:'#DB91AD'}}/>
+                </Exit>
+                <OrderTitle><h1>Summering</h1></OrderTitle>
+                <Wrap><h5><span className="bold">Din beställning</span></h5></Wrap>
 
-                </OrderContainer>{" "}
+                {" "}
                 {orders.map((order, index) => (
 
                     <OrderContainer key={index}>
-                        <span className="bold">Din beställning</span>
                         <OrderItem style={{ paddingBottom: '0px', cursor: 'pointer' }}>
                             <div>{order.quantity}</div>
                             <div>{order.name}</div>
@@ -148,7 +159,7 @@ export function SummaryDialog({ openAdressDialog,
                                 .filter(b => b.checked)
                                 .map(bread => bread.name)
                             } {" "} {order.drinks.filter(d => d.checked).map(drink => drink.name)}
-                                {" "}{order.drinks.filter(d => d.checked).map(drink => formatPrice(drink.price))} </div>
+                            </div>
                             {/*                                     <div>{order.drinks.filter(d => d.checked).length === 0 ? null
                                      : order.drinks.filter(d => d.checked).length}</div> */}
                             <div></div>
@@ -158,13 +169,13 @@ export function SummaryDialog({ openAdressDialog,
                     </OrderContainer>
 
                 ))}
+                <Wrap><h5><span className="bold">Levereras till</span></h5></Wrap>
                 <OrderContainer>
-                    <div><span className="bold">Levereras till</span>
-                        <p>{adress}</p></div>
+                    <p>{name}</p>
+                    <p>{adress}</p>
                 </OrderContainer>
+                <Wrap><h5><span className="bold">Betalning</span></h5></Wrap>
                 <OrderContainer>
-                    <div><span className="bold">Betalning</span></div>
-
                     <PriceItem>
                         <div><FaCcVisa style={{
                             width: '25px', height: '25px', marginRight: '8px',
@@ -183,12 +194,15 @@ export function SummaryDialog({ openAdressDialog,
 
 
             <DialogFooter>
-                 <MyButton onClick={() => {
+                <MyButton onClick={() => {
                     if (loggedIn) {
                         sendOrder(orders, loggedIn);
+                        setOpenConfirmDialog(true);
+                        close();
                     } else {
                         sendOrder(orders)
-                        
+                        setOpenConfirmDialog(true);
+                        close();
                     }
 
                 }}>

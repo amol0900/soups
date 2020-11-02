@@ -11,13 +11,15 @@ width: 24px;
 text-align:center;
 border:none;
 outline:none;
-background-color:#f3f6f6;
+background-color:white;
 `
 
 const IncrementContainer = styled.div`
 display:flex;
 align-items:center;
 height:24px;
+padding-left: 25px;
+padding-bottom: 15px;
 `
 
 const IncrementButton = styled.div`

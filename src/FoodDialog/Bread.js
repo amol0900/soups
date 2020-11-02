@@ -10,7 +10,7 @@ grid-tempalte-columns: repeat (3, 1fr);
 const BreadCheckbox = styled.input`
 margin-right:10px;
 cursor:pointer;
-background-color:#f3f6f6;
+background-color:white;
 
 `
 

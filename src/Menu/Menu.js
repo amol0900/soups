@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import { foods } from '../Data/FoodData';
 import { Food, FoodGrid, FoodLabel, FoodWrapper, MyButton} from './FoodGrid';
 import {formatPrice} from '../Data/FoodData';
+import { AiOutlineFieldTime } from 'react-icons/ai';
+
 
 const MenuStyled = styled.div`
 display:flex;
@@ -13,7 +15,16 @@ background-color:rgb(243,246,246);
 @media screen and (max-width: 500px) { 
     
     `
+const Wrapper=styled.div`
+display:flex;
+justify-content:space-between;
+align-items:center;
+`
 
+const Delivery=styled.div`
+display:flex;
+align-items:center;
+`
     
 
 export function Menu({setOpenFood}) {
@@ -33,7 +44,12 @@ export function Menu({setOpenFood}) {
                 <FoodLabel>
                 <h1>{food.name}</h1>
                 <p>{food.description}</p>
+            <Wrapper>
                 <h2>{formatPrice(food.price)}</h2>
+                <Delivery>
+                <AiOutlineFieldTime style={{width:'15px', height:'15px' /* color:'#91DBB7' */, marginRight:'3px'}}/> <p>25-30min</p>
+                </Delivery>
+                </Wrapper>
                 <MyButton onClick={() => {
                     setOpenFood(food);
                 }}>

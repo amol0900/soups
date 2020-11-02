@@ -1,5 +1,4 @@
 import React from 'react';
-import styled from 'styled-components';
 import { MyButton} from '../Menu/FoodGrid';
 import { formatPrice } from '../Data/FoodData';
 import { QuantityInput } from './QuantityInput';
@@ -8,13 +7,17 @@ import {Bread} from './Bread';
 import {Drink} from './Drink';
 import {useBreads} from '../Hooks/useBreads';
 import {useDrinks} from '../Hooks/useDrinks';
+import { IoIosCloseCircle } from 'react-icons/io'
+import styled, { keyframes } from 'styled-components';
+import { fadeIn } from 'react-animations';
 
+const fader = keyframes`${fadeIn}`;
 
 
 export const Dialog = styled.div`
 display:flex;
 flex-direction:column;
-background-color:#f3f6f6;
+background-color:white;
 width:300px;
 position:fixed;
 top:75px;
@@ -23,13 +26,11 @@ min-height: calc(100% - 100px);
 max-height: calc(100% - 100px);
 left: calc(50% - 150px);
 margin-top:0;
+animation: 1s ${fader}; 
 
-/* @media screen and (max-width: 500px) { 
-    width:100vw;
-    left:0%;
-    height:100vh;
-    } */
 `
+
+
 export const DialogShadow = styled.div`
 position:fixed;
 width:100%;
@@ -57,17 +58,43 @@ margin-bottom:0px;
 `
 
 export const DialogContent = styled.div`
-overflow:auto;
+overflow:scroll;
 height:100vh;
 min-height:100px;
-padding:0px 24px;
 padding-bottom:80px;
+`
+const DialogContainer=styled.div`
+padding:25px;
 `
 export const DialogFooter = styled.div`
 /* box-shadow: 0px 2px 20px 0px grey; */
 margin-bottom:0px;
 
 `
+
+export const Exit=styled.div`
+cursor:pointer;
+font-size:18px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:15px;
+`
+
+const FoodExit=styled.div`
+cursor:pointer;
+font-size:18px;
+display:flex;
+padding:10px;
+flex-direction:column;
+align-items:flex-end;
+`
+const Wrap = styled.div`
+background-color:/* rgba(145, 219, 183, 0.3) */ #F5F5F5;
+padding:10px 25px 10px;
+`
+
+
 const pricePerDrink = 25;
 
 export function getPrice(order){
@@ -123,18 +150,27 @@ function FoodDialogContainer({onClick, openFood, setOpenFood, setOrders, orders}
      <>
         <DialogShadow onClick={close} />
         <Dialog>
-         <DialogBanner img={openFood.minImg} />
+         <DialogBanner img={openFood.minImg}>
+         <FoodExit>
+         <div><IoIosCloseCircle onClick={close} /></div>
+         </FoodExit>
+         </DialogBanner>
         <DialogTitle>
             <h4>{openFood.name}</h4>
             <h4><span className="price">{formatPrice(openFood.price)}</span></h4>
         </DialogTitle>
 
         <DialogContent>
-            <QuantityInput quantity={quantity}/>
-            <h5><span className="bold">Välj tillbehör</span> (obligatorisk)</h5>
+        <QuantityInput quantity={quantity}/>
+            <Wrap><h5><span className="bold">Välj tillbehör</span> (obligatorisk)</h5></Wrap>
+            <DialogContainer>
             <Bread {...breads}/>
-            <h5><span className="bold">Välj dryck</span></h5>
+            </DialogContainer>
+            <Wrap><h5><span className="bold">Välj dryck</span></h5></Wrap>
+            <DialogContainer>
             <Drink {...drinks}/>
+            </DialogContainer>
+            
         </DialogContent>
 
         <DialogFooter>

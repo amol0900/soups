@@ -8,16 +8,17 @@ import { MdLocationOn } from 'react-icons/md';
 import { GoCreditCard } from 'react-icons/go';
 import { FaUserCircle } from 'react-icons/fa';
 import { useLocalStorage } from '../Hooks/useLocalStorage';
-import { InputWrapper } from '../Home';
+import { InputWrapper } from '../HomeDialog';
 import { FaLongArrowAltRight } from 'react-icons/fa';
 import { MyButton } from '../Menu/FoodGrid';
 import { usePayDialog } from '../Hooks/usePayDialog';
 import { AddressContext } from "../AddressContext";
+import { Exit, Button } from '../FoodDialog/FoodDialog';
+import { IoIosArrowBack, IoIosCloseCircle } from 'react-icons/io'
 
 
 export const YourName = styled.input`
 background:rgba(145, 219, 183, 0.3);
-color:#222222;
 padding:20px;
 padding-top: 1em;
 padding-bottom: 1em;
@@ -30,7 +31,6 @@ text-indent:15px;
 
 export const YourAdress = styled.input`
 background:rgba(145, 219, 183, 0.3);
-color:#222222;
 padding:20px;
 padding-top: 1em;
 padding-bottom: 1em;
@@ -55,19 +55,31 @@ const testData = [
   { bgcolor: "#91DBB7", completed: 66 },
 ];
 
-export function AdressDialog({ openAdressDialog, setOpenAdressDialog, setOrders, loggedIn, displayName, openPayDialog, setOpenPayDialog }) {
+export function AdressDialog({ openAdressDialog, setOpenAdressDialog, setOpenCart, setOrders, loggedIn, displayName, openPayDialog, setOpenPayDialog }) {
   /* const stored = localStorage.getItem(value);
   const [adress, setAdress] = useLocalStorage('adress'); */
-  const [name, setName] = useLocalStorage('namn', 'Skriv ditt namn');
-  const { adress, setAdress } = useContext(AddressContext);
+  /* const [name, setName] = useLocalStorage('namn', 'Skriv ditt namn'); */
+  const { adress, setAdress, name, setName } = useContext(AddressContext);
+
+  function close() {
+    setOpenAdressDialog();
+}
+if (!openAdressDialog) return null;
 
 
   return openAdressDialog ? <>
-    {/* <DialogShadow /> */}
+    <DialogShadow />
     <Dialog>
       <OrderContent >
+        <Exit>
+        <IoIosArrowBack onClick={() => {
+            close();
+            setOpenCart(true);
+          }} style={{width:'20px', height:'20px'}} />
+          <IoIosCloseCircle onClick={close} style={{color:'#DB91AD'}}/>
+        </Exit>
         <OrderContainer >
-          <OrderTitle><h1 style={{ color: '#656565' }}>Adress</h1></OrderTitle>
+          <OrderTitle><h1>Adress</h1></OrderTitle>
           <Wizard>
             <WizardItems>
 
@@ -115,7 +127,7 @@ export function AdressDialog({ openAdressDialog, setOpenAdressDialog, setOrders,
         </OrderContainer>
       </OrderContent>
       <DialogFooter>
-        <MyButton onClick={() => {
+        <MyButton onClick={() => { close();
           setOpenPayDialog(true);
         }}>
           <p className="buttonText">Betalning</p> &nbsp;

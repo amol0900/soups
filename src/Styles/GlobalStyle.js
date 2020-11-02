@@ -58,6 +58,8 @@ body, html {
     font-size:14px;
     font-weight:normal;
     /* margin:10px; */
+    margin:0;
+    padding:0;
   }
 
   .buttonText {
@@ -91,8 +93,8 @@ body, html {
 }
 
   .soup {
-    width:50px;
-    height:39px;
+    width:45px;
+    height:auto;
 }
 
 .card {

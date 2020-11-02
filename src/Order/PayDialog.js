@@ -8,17 +8,19 @@ import { MdLocationOn } from 'react-icons/md';
 import { GoCreditCard } from 'react-icons/go';
 import { FaUserCircle } from 'react-icons/fa';
 import { useLocalStorage } from '../Hooks/useLocalStorage';
-import { InputWrapper } from '../Home';
+import { InputWrapper } from '../HomeDialog';
 import { FaLongArrowAltRight, FaCcVisa } from 'react-icons/fa';
 import { MyButton } from '../Menu/FoodGrid';
 import { usePayDialog } from '../Hooks/usePayDialog';
-import { useSummaryDialog } from '../Hooks/useSummaryDialog';
+import { Wrap } from './SummaryDialog';
+import { Exit, Button } from '../FoodDialog/FoodDialog';
+import { IoIosArrowBack, IoIosCloseCircle } from 'react-icons/io'
 
 
 
 export const YourName = styled.input`
 background:rgba(145, 219, 183, 0.3);
-color:#222222;
+color:#4e4e4e;
 padding:20px;
 padding-top: 1em;
 padding-bottom: 1em;
@@ -32,7 +34,7 @@ text-indent:15px;
 
 export const YourAdress = styled.input`
 background:rgba(145, 219, 183, 0.3);
-color:#222222;
+color:#4e4e4e;
 padding:20px;
 padding-top: 1em;
 padding-bottom: 1em;
@@ -51,6 +53,12 @@ display:flex;
 flex-direction:row;
 align-items:center;
 cursor:pointer;
+border-top: 1px solid #e0e0de;
+border-bottom: 1px solid #e0e0de;
+padding-top: 10px;
+padding-bottom: 10px;
+margin-top:12px;
+
 `
 
 const testData = [
@@ -66,16 +74,29 @@ export function PayDialog({ openAdressDialog,
   setOpenPayDialog,
   openSummaryDialog,
   setOpenSummaryDialog }) {
+
   const [adress, setAdress] = useLocalStorage('adress', 'Ange din adress');
   const [name, setName] = useLocalStorage('namn', 'Skriv ditt namn');
-  const summaryDialog = useSummaryDialog();
+
+  function close() {
+    setOpenPayDialog();
+  }
+  if (!openPayDialog) return null;
+
 
   return openPayDialog ? <>
-    {/* <DialogShadow /> */}
+    <DialogShadow />
     <Dialog>
-      <OrderContent >
+      <OrderContent>
+        <Exit>
+          <IoIosArrowBack onClick={() => {
+            close();
+            setOpenAdressDialog(true);
+          }} tyle={{width:'20px', height:'20px'}}/>
+          <IoIosCloseCircle onClick={close} style={{color:'#DB91AD'}}/>
+        </Exit>
         <OrderContainer >
-          <OrderTitle><h1 style={{ color: '#656565' }}>Betalning</h1></OrderTitle>
+          <OrderTitle><h1>Betalning</h1></OrderTitle>
           <Wizard>
             <WizardItems>
 
@@ -89,10 +110,15 @@ export function PayDialog({ openAdressDialog,
             ))}
           </Wizard>
         </OrderContainer>
-        <OrderContainer>
-          <Payment onClick={() => { setOpenSummaryDialog(true); }}>
-            <FaCcVisa style={{ width: '25px', height: '25px', marginRight: '8px', color: '#1a1e71' }} /> <p>Betala med kort</p>
 
+        <OrderContainer>
+          <span className="bold">Betalningsmetod</span>
+          <Payment onClick={() => {
+            close();
+            setOpenSummaryDialog(true);
+          }}>
+            <FaCcVisa style={{ width: '25px', height: '25px', marginRight: '8px', color: '#1a1e71' }} />
+            <p>Betala med kort</p>
           </Payment>
 
         </OrderContainer>

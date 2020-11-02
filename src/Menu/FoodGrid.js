@@ -49,7 +49,7 @@ box-sizing: border-box;
 export const MyButton = styled.div`
 display:flex;
 background:rgba(145, 219, 183, 0.3);
-color:#222222;
+color:#222222; !important;
 padding:8px;
 font-size:11px;
 justify-content:center; 

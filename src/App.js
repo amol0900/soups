@@ -14,10 +14,13 @@ import {  useAuthentication } from './Hooks/useAuthentication';
 import {AdressDialog} from './Order/AdressDialog';
 import {PayDialog} from './Order/PayDialog';
 import {SummaryDialog} from './Order/SummaryDialog';
+import {ConfirmDialog} from './Order/ConfirmDialog';
 import { useAdressDialog } from './Hooks/useAdressDialog';
 import { usePayDialog } from './Hooks/usePayDialog';
 import { useSummaryDialog } from './Hooks/useSummaryDialog';
-import { Home } from './Home'
+import { useConfirmDialog } from './Hooks/useConfirmDialog';
+import { useHomeDialog } from './Hooks/useHomeDialog';
+import { HomeDialog } from './HomeDialog';
 import { Menu } from './Menu/Menu';
 import { useLocalStorage } from './Hooks/useLocalStorage';
 import { AddressContext } from "./AddressContext";
@@ -29,11 +32,14 @@ const openFood = useOpenFood();
 const openCart = useOpenCart();
 const orders = useOrders();
 const auth = useAuthentication();
+const homeDialog = useHomeDialog();
 const payDialog = usePayDialog();
 const adressDialog = useAdressDialog();
 const summaryDialog = useSummaryDialog();
+const confirmDialog = useConfirmDialog();
 /* const local = useLocalStorage(); */
 const [adress, setAdress] = useLocalStorage('adress', '');
+const [name, setName] = useLocalStorage('name', '');
 
 
 useTitle ({...openFood, ...orders});
@@ -41,9 +47,9 @@ useTitle ({...openFood, ...orders});
 
 return (
 
-<AddressContext.Provider value={{ adress, setAdress }}>
+<AddressContext.Provider value={{ adress, setAdress, name, setName }}>
   <GlobalStyle/>
-  <Home />
+  <HomeDialog {...homeDialog} {...auth}/>
   <FoodDialog {...openFood} {...orders} />
   <CartDialog {...openCart} {...orders} {...openFood} {...auth} {...adressDialog} {...payDialog}/>
      <Navbar onClick={() => openCart.setOpenCart(true)} {...orders} {...auth}/>  
@@ -51,9 +57,10 @@ return (
      {/* <Order /> */}
     <Menu {...openFood} />
     {/* <Order {...orders} {...openFood} {...auth} {...adressDialog} /> */}
-    <AdressDialog {...adressDialog} {...orders} {...auth} {...payDialog}/>
-    <PayDialog {...payDialog} {...summaryDialog} />
-    <SummaryDialog {...summaryDialog} {...orders} {...auth} />
+    <AdressDialog {...openCart} {...adressDialog} {...orders} {...auth} {...payDialog}/>
+    <PayDialog {...adressDialog} {...payDialog} {...summaryDialog} />
+    <SummaryDialog {...payDialog} {...summaryDialog} {...orders} {...confirmDialog} {...auth} />
+    <ConfirmDialog {...confirmDialog} {...orders} {...auth} />
     </AddressContext.Provider>
 
   );
