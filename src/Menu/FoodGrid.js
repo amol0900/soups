@@ -1,11 +1,10 @@
 import styled from 'styled-components';
-import { buttonColor } from '../Styles/colors';
 
 export const FoodGrid = styled.div`
 display:flex;
 flex-direction:column;
 align-items:center;
-width:/* 810px; */890px;
+width:890px;
 height:auto;
 `
 
@@ -37,7 +36,6 @@ background-color:white;
 
 @media screen and (max-width: 500px) { 
  width: 330px; 
- /* height: 600px; */ 
 }
 `
 

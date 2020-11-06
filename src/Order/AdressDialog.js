@@ -7,16 +7,12 @@ import { AiFillShopping } from 'react-icons/ai';
 import { MdLocationOn } from 'react-icons/md';
 import { GoCreditCard } from 'react-icons/go';
 import { FaUserCircle } from 'react-icons/fa';
-import { useLocalStorage } from '../Hooks/useLocalStorage';
 import { InputWrapper } from '../HomeDialog';
 import { FaLongArrowAltRight } from 'react-icons/fa';
 import { MyButton } from '../Menu/FoodGrid';
-import { usePayDialog } from '../Hooks/usePayDialog';
 import { AddressContext } from "../AddressContext";
-import { Exit, Button } from '../FoodDialog/FoodDialog';
+import { Exit } from '../FoodDialog/FoodDialog';
 import { IoIosArrowBack, IoIosCloseCircle } from 'react-icons/io'
-
-import { FcGoogle } from 'react-icons/fc';
 
 
 export const YourName = styled.input`
@@ -59,22 +55,16 @@ margin-top:30px;
 `
 
 
-
-/* const WizardItems=styled.div`
-display:flex;
-justify-content:center;
-padding-bottom:20px;
-color:#9AB54A;
-`; */
-
 const testData = [
   { bgcolor: "#91DBB7", completed: 66 },
 ];
 
-export function AdressDialog({ openAdressDialog, setOpenAdressDialog, setOpenCart, setOrders, login, loggedIn, displayName, openPayDialog, setOpenPayDialog }) {
-  /* const stored = localStorage.getItem(value);
-  const [adress, setAdress] = useLocalStorage('adress'); */
-  /* const [name, setName] = useLocalStorage('namn', 'Skriv ditt namn'); */
+export function AdressDialog({ openAdressDialog,
+  setOpenAdressDialog,
+  setOpenCart,
+  loggedIn,
+  setOpenPayDialog }) {
+
   const { adress, setAdress, name, setName } = useContext(AddressContext);
 
   function close() {
@@ -156,9 +146,3 @@ export function AdressDialog({ openAdressDialog, setOpenAdressDialog, setOpenCar
   </> : <div />
 }
 
-
-
-{/* <span className="bold">Namn</span>
-<Name defaultValue={loggedIn ? `${loggedIn.displayName}.` : ""}  type="text" />
-<span className="bold">Adress</span>
-<Name defaultValue="Adress" type="text" /> */}

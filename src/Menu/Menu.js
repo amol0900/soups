@@ -11,7 +11,6 @@ const MenuStyled = styled.div`
 display:flex;
 justify-content:center;
 background-color:rgb(243,246,246);
- /* margin-left:50px;  */
 
 @media screen and (max-width: 500px) { 
     

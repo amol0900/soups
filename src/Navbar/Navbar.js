@@ -56,14 +56,9 @@ const UserStatus = styled.div`
 font-size:14px;
 align-self:center;
 `
-/* const LoginButton = styled.span`
-cursor:pointer;
-` */
 
-export function Navbar({ onClick, orders, setOrders, login, loggedIn, logout }) {
-    const [adress, setAdress] = useLocalStorage('adress', 'Ange din adress');
-
-
+export function Navbar({ onClick, orders, loggedIn, logout }) {
+  
     return <NavbarStyled>
 
         <div></div>
@@ -90,8 +85,3 @@ export function Navbar({ onClick, orders, setOrders, login, loggedIn, logout }) 
             </Cart>
     </NavbarStyled>;
 }
-{/* <img src="/img/soup.png" alt="soup" className="soup" onClick={() => onClick()}/> */ }
-
-/* ${loggedIn.displayName} */
-
-{/* <LoginButton onClick={logout}>Logga ut</LoginButton> */ }

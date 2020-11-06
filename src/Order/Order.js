@@ -5,17 +5,16 @@ import { formatPrice } from '../Data/FoodData';
 import { getPrice, Dialog, DialogFooter } from '../FoodDialog/FoodDialog';
 import { TiDelete } from 'react-icons/ti';
 import { AiTwotoneEdit } from 'react-icons/ai';
-import { buttonColor } from '../Styles/colors';
 import ProgressBar from "./progress-bar.component";
 import { AiFillShopping } from 'react-icons/ai';
 import { MdLocationOn } from 'react-icons/md';
 import { GoCreditCard } from 'react-icons/go';
 import { FaLongArrowAltRight } from 'react-icons/fa';
-import { Exit, Button } from '../FoodDialog/FoodDialog';
+import { Exit } from '../FoodDialog/FoodDialog';
 import { IoIosArrowBack, IoIosCloseCircle } from 'react-icons/io'
 import { fadeIn } from 'react-animations';
 import styled, { keyframes } from 'styled-components';
-import { AnimateOnChange } from 'react-animation'
+
 
 
 const fader = keyframes`${fadeIn}`;
@@ -114,6 +113,7 @@ export function Order({
     setOpenFood,
     closeMe,
     setOpenAdressDialog }) {
+        
     const subtotal = orders.reduce((total, order) => {
         return total + getPrice(order);
     }, 0);
@@ -185,8 +185,7 @@ export function Order({
                                             .map(bread => bread.name)
                                         } {" "} {order.drinks.filter(d => d.checked).map(drink => drink.name)}
                                             {" "}{order.drinks.filter(d => d.checked).map(drink => formatPrice(drink.price))} </div>
-                                        {/*                                     <div>{order.drinks.filter(d => d.checked).length === 0 ? null
-                                     : order.drinks.filter(d => d.checked).length}</div> */}
+                                       
                                         <div></div>
                                         <div></div>
                                     </DetailItem>

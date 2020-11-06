@@ -2,18 +2,12 @@ import React from 'react';
 import styled from 'styled-components';
 import { OrderContent, OrderContainer, OrderTitle, Wizard, WizardItems } from "../Order/Order";
 import ProgressBar from "./progress-bar.component";
-import { Dialog, DialogShadow, DialogFooter } from '../FoodDialog/FoodDialog';
+import { Dialog, DialogShadow } from '../FoodDialog/FoodDialog';
 import { AiFillShopping } from 'react-icons/ai';
 import { MdLocationOn } from 'react-icons/md';
 import { GoCreditCard } from 'react-icons/go';
-import { FaUserCircle } from 'react-icons/fa';
-import { useLocalStorage } from '../Hooks/useLocalStorage';
-import { InputWrapper } from '../HomeDialog';
-import { FaLongArrowAltRight, FaCcVisa } from 'react-icons/fa';
-import { MyButton } from '../Menu/FoodGrid';
-import { usePayDialog } from '../Hooks/usePayDialog';
-import { Wrap } from './SummaryDialog';
-import { Exit, Button } from '../FoodDialog/FoodDialog';
+import { FaCcVisa } from 'react-icons/fa';
+import { Exit } from '../FoodDialog/FoodDialog';
 import { IoIosArrowBack, IoIosCloseCircle } from 'react-icons/io'
 
 
@@ -65,18 +59,12 @@ const testData = [
   { bgcolor: "#91DBB7", completed: 100 },
 ];
 
-export function PayDialog({ openAdressDialog,
+export function PayDialog({
   setOpenAdressDialog,
-  setOrders,
-  loggedIn,
-  displayName,
   openPayDialog,
   setOpenPayDialog,
-  openSummaryDialog,
   setOpenSummaryDialog }) {
 
-  const [adress, setAdress] = useLocalStorage('adress', 'Ange din adress');
-  const [name, setName] = useLocalStorage('namn', 'Skriv ditt namn');
 
   function close() {
     setOpenPayDialog();
@@ -127,10 +115,3 @@ export function PayDialog({ openAdressDialog,
     </Dialog>
   </> : <div />
 }
-
-
-
-{/* <span className="bold">Namn</span>
-<Name defaultValue={loggedIn ? `${loggedIn.displayName}.` : ""}  type="text" />
-<span className="bold">Adress</span>
-<Name defaultValue="Adress" type="text" /> */}

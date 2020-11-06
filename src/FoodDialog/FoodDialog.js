@@ -1,12 +1,12 @@
 import React from 'react';
-import { MyButton} from '../Menu/FoodGrid';
+import { MyButton } from '../Menu/FoodGrid';
 import { formatPrice } from '../Data/FoodData';
 import { QuantityInput } from './QuantityInput';
 import { useQuantity } from '../Hooks/useQuantity';
-import {Bread} from './Bread';
-import {Drink} from './Drink';
-import {useBreads} from '../Hooks/useBreads';
-import {useDrinks} from '../Hooks/useDrinks';
+import { Bread } from './Bread';
+import { Drink } from './Drink';
+import { useBreads } from '../Hooks/useBreads';
+import { useDrinks } from '../Hooks/useDrinks';
 import { IoIosCloseCircle } from 'react-icons/io'
 import styled, { keyframes } from 'styled-components';
 import { fadeIn } from 'react-animations';
@@ -43,7 +43,7 @@ z-index:4;
 
 const DialogBanner = styled.div`
 min-height:100px;
-${({img}) => `background-image:url(${img});`}
+${({ img }) => `background-image:url(${img});`}
 background-position:center;
 background-size:cover;
 
@@ -63,7 +63,7 @@ height:100vh;
 min-height:100px;
 padding-bottom:80px;
 `
-const DialogContainer=styled.div`
+const DialogContainer = styled.div`
 padding:25px;
 `
 export const DialogFooter = styled.div`
@@ -72,7 +72,7 @@ margin-bottom:0px;
 
 `
 
-export const Exit=styled.div`
+export const Exit = styled.div`
 cursor:pointer;
 font-size:18px;
 display:flex;
@@ -81,7 +81,7 @@ align-items:center;
 padding:15px;
 `
 
-const FoodExit=styled.div`
+const FoodExit = styled.div`
 cursor:pointer;
 font-size:18px;
 display:flex;
@@ -94,28 +94,25 @@ background-color:/* rgba(145, 219, 183, 0.3) */ #F5F5F5;
 padding:10px 25px 10px;
 `
 
-
 const pricePerDrink = 25;
 
-export function getPrice(order){
-    console.log(order)
-   /* return order.quantity * (order.price); */ 
-   return (
-       order.quantity *
-        (order.price + 
+export function getPrice(order) {
+    return (
+        order.quantity *
+        (order.price +
             order.drinks.filter(d => d.checked).length * pricePerDrink)
-    ); 
+    );
 }
 
 function hasBread(food) {
     return food.section === "soup";
-  }
+}
 
-  function hasDrink(food) {
+function hasDrink(food) {
     return food.section === "soup";
-  }
+}
 
-function FoodDialogContainer({onClick, openFood, setOpenFood, setOrders, orders}) {
+function FoodDialogContainer({ onClick, openFood, setOpenFood, setOrders, orders }) {
     const quantity = useQuantity(openFood && openFood.quantity);
     const breads = useBreads(openFood.breads);
     const drinks = useDrinks(openFood.drinks);
@@ -133,61 +130,65 @@ function FoodDialogContainer({onClick, openFood, setOpenFood, setOrders, orders}
         drinks: drinks.drinks
     }
 
-    function editOrder(newOrder){
+    function editOrder(newOrder) {
         const newOrders = [...orders];
         newOrders[openFood.index] = order;
         setOrders(newOrders);
         close();
     }
 
-    function addToOrder () {
+    function addToOrder() {
         setOrders([...orders, order])
         close();
     }
 
 
     return (
-     <>
-        <DialogShadow onClick={close} />
-        <Dialog>
-         <DialogBanner img={openFood.minImg}>
-         <FoodExit>
-         <div><IoIosCloseCircle onClick={close} /></div>
-         </FoodExit>
-         </DialogBanner>
-        <DialogTitle>
-            <h4>{openFood.name}</h4>
-            <h4><span className="price">{formatPrice(openFood.price)}</span></h4>
-        </DialogTitle>
+        <>
+            <DialogShadow onClick={close} />
+            <Dialog>
+                <DialogBanner img={openFood.minImg}>
+                    <FoodExit>
+                        <div><IoIosCloseCircle onClick={close} /></div>
+                    </FoodExit>
+                </DialogBanner>
+                <DialogTitle>
+                    <h4>{openFood.name}</h4>
+                    <h4><span className="price">{formatPrice(openFood.price)}</span></h4>
+                </DialogTitle>
 
-        <DialogContent>
-        <QuantityInput quantity={quantity}/>
-            <Wrap><h5><span className="bold">Välj tillbehör</span> (obligatorisk)</h5></Wrap>
-            <DialogContainer>
-            <Bread {...breads}/>
-            </DialogContainer>
-            <Wrap><h5><span className="bold">Välj dryck</span></h5></Wrap>
-            <DialogContainer>
-            <Drink {...drinks}/>
-            </DialogContainer>
-            
-        </DialogContent>
+                <DialogContent>
+                    <QuantityInput quantity={quantity} />
+                    <Wrap>
+                        <h5>
+                            <span className="bold">Välj tillbehör</span> (obligatorisk)
+                        </h5>
+                    </Wrap>
+                    <DialogContainer>
+                        <Bread {...breads} />
+                    </DialogContainer>
+                    <Wrap><h5><span className="bold">Välj dryck</span></h5></Wrap>
+                    <DialogContainer>
+                        <Drink {...drinks} />
+                    </DialogContainer>
 
-        <DialogFooter>
-            <MyButton onClick={isEditing ? editOrder : addToOrder}>
-                <p className="buttonText">{isEditing ? `Uppdatera varukorgen`: `Lägg till i varukorgen`} {formatPrice(getPrice(order))}</p> 
-            </MyButton>
-        </DialogFooter>
-    </Dialog>
-    </>
+                </DialogContent>
+
+                <DialogFooter>
+                    <MyButton onClick={isEditing ? editOrder : addToOrder}>
+                        <p className="buttonText">{isEditing ? `Uppdatera varukorgen` : `Lägg till i varukorgen`} {formatPrice(getPrice(order))}</p>
+                    </MyButton>
+                </DialogFooter>
+            </Dialog>
+        </>
     );
 }
 
-export function oldFoodDialog(props){
+export function oldFoodDialog(props) {
     if (!props.openFood) return null;
-    return <FoodDialogContainer {...props} />;  
+    return <FoodDialogContainer {...props} />;
 }
-export function FoodDialog(props){
-    return (props.openFood) ?  <FoodDialogContainer {...props} /> : null; 
+export function FoodDialog(props) {
+    return (props.openFood) ? <FoodDialogContainer {...props} /> : null;
 }
 

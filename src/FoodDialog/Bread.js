@@ -4,7 +4,6 @@ import styled from 'styled-components';
 const BreadGrid = styled.div`
 display:grid;
 grid-tempalte-columns: repeat (3, 1fr);
-/* padding:0px 24px;  */
 
 `
 const BreadCheckbox = styled.input`

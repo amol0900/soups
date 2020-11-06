@@ -1,12 +1,9 @@
 import React, { useContext } from "react";
-/* import styled from 'styled-components'; */
+import styled from 'styled-components';
 import { MdLocationOn } from 'react-icons/md';
 import { AddressContext } from "./AddressContext";
 import { DialogShadow } from './FoodDialog/FoodDialog';
 import { FcGoogle } from 'react-icons/fc';
-import styled, { keyframes } from 'styled-components';
-
-/* const faderO = keyframes`${fadeOut}`; */
 
 
 export const Dialog = styled.div`

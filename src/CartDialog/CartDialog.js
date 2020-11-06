@@ -1,25 +1,18 @@
 import React from 'react';
 import styled, { keyframes } from 'styled-components';
-import { MyButton } from '../Menu/FoodGrid';
-import { formatPrice } from '../Data/FoodData';
-import { QuantityInput } from '../FoodDialog/QuantityInput';
 import { useQuantity } from '../Hooks/useQuantity';
-import { Bread } from '../FoodDialog/Bread';
-import { Drink } from '../FoodDialog/Drink';
 import { useBreads } from '../Hooks/useBreads';
 import { useDrinks } from '../Hooks/useDrinks';
 import { Order } from '../Order/Order'
 import { useOpenFood } from '../Hooks/useOpenFood';
 import { AdressDialog } from '../Order/AdressDialog';
 import { SummaryDialog } from '../Order/SummaryDialog';
-import { ConfirmDialog } from '../Order/ConfirmDialog';
 import { useAuthentication } from '../Hooks/useAuthentication';
 import { useAdressDialog } from '../Hooks/useAdressDialog';
-import { slideInRight, fadeIn } from 'react-animations';
+import { fadeIn } from 'react-animations';
 
 
 const fader = keyframes`${fadeIn}`;
-
 
 
 export const Dialog = styled.div`
@@ -49,8 +42,6 @@ opacity:0.7;
 z-index:4;
 `
 
-
-
 const pricePerDrink = 25;
 
 export function getPrice(order) {
@@ -79,7 +70,8 @@ function CartDialogContainer({ openCart,
     setOpenAdressDialog,
     setOpenPayDialog,
     setOpenSummaryDialog,
-setOpenConfirmDialog }) {
+    setOpenConfirmDialog }) {
+    
     const quantity = useQuantity(openCart && openCart.quantity);
     const breads = useBreads(openCart.breads);
     const drinks = useDrinks(openCart.drinks);
@@ -108,41 +100,23 @@ setOpenConfirmDialog }) {
 
     return (
         <>
-            <DialogShadow /* onClick={close}  */ />
+            <DialogShadow />
             <Dialog>
                 <Order closeMe={() => close()} {...openFood} orders={orders}
                     setOrders={setOrders} setOpenFood={setOpenFood} openCart={openCart} setOpenCart={setOpenCart}
-                    setOpenAdressDialog={setOpenAdressDialog} {...auth} />
+                    setOpenAdressDialog={setOpenAdressDialog} />
 
-                <AdressDialog /* closeMe={() => close()} */ {...openFood} orders={orders}
-                    setOrders={setOrders} setOpenFood={setOpenFood} openCart={openCart} setOpenCart={setOpenCart}
-                    setOpenAdressDialog={setOpenAdressDialog} setOpenPayDialog={setOpenPayDialog} {...auth} />
+                <AdressDialog  {...auth} />
 
                 <SummaryDialog {...openFood} orders={orders}
-                    setOrders={setOrders} setOpenFood={setOpenFood} openCart={openCart} setOpenCart={setOpenCart}
-                    setOpenAdressDialog={setOpenAdressDialog} setOpenPayDialog={setOpenPayDialog} 
-                    setOpenSummaryDialog={setOpenSummaryDialog} setOpenConfirmDialog={setOpenConfirmDialog} {...auth} />
+                    setOrders={setOrders} setOpenFood={setOpenFood}  setOpenPayDialog={setOpenPayDialog} 
+                    setOpenConfirmDialog={setOpenConfirmDialog} {...auth} />
 
-
-                <ConfirmDialog {...openFood} orders={orders}
-                    setOrders={setOrders} setOpenFood={setOpenFood} openCart={openCart} setOpenCart={setOpenCart}
-                    setOpenAdressDialog={setOpenAdressDialog} setOpenPayDialog={setOpenPayDialog} 
-                    setOpenSummaryDialog={setOpenSummaryDialog} setOpenConfirmDialog={setOpenConfirmDialog}{...auth} />
             </Dialog>
         </>
     );
 }
 
-
 export function CartDialog(props) {
     return (props.openCart) ? <CartDialogContainer {...props} /> : null;
 }
-
-{/* <MyButton onClick={() => {
-    if (loggedIn) {
-        console.log('logged in')
-    } else {
-        login();
-    }
-
-}}> */}

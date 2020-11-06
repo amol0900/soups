@@ -1,17 +1,13 @@
 import React, { useContext } from "react";
 import styled from 'styled-components';
-import { OrderContent, OrderContainer, OrderTitle, Wizard, WizardItems } from "../Order/Order";
+import { OrderContent, OrderContainer, OrderTitle} from "../Order/Order";
 import { Dialog, DialogShadow, DialogFooter, getPrice } from '../FoodDialog/FoodDialog';
-import { useLocalStorage } from '../Hooks/useLocalStorage';
-import { InputWrapper } from '../HomeDialog';
-import { FaLongArrowAltRight, FaCcVisa } from 'react-icons/fa';
 import { MyButton } from '../Menu/FoodGrid';
 import { formatPrice } from '../Data/FoodData';
-import { TiDelete } from 'react-icons/ti';
-import { AiTwotoneEdit } from 'react-icons/ai';
 import { AddressContext } from "../AddressContext";
-import { Exit, Button } from '../FoodDialog/FoodDialog';
+import { Exit } from '../FoodDialog/FoodDialog';
 import { IoIosArrowBack, IoIosCloseCircle } from 'react-icons/io'
+import { FaCcVisa } from 'react-icons/fa'
 
 
 
@@ -93,19 +89,14 @@ function sendOrder(orders) {
     });
 }
 
-export function SummaryDialog({ openAdressDialog,
-    setOpenAdressDialog,
+export function SummaryDialog({ 
     orders,
-    order,
     setOrders,
     loggedIn,
-    setOpenFood,
-    displayName,
-    openPayDialog,
     setOpenPayDialog,
     openSummaryDialog,
     setOpenSummaryDialog,
-    closeMe, login, openConfirmDialog, setOpenConfirmDialog }) {
+    setOpenConfirmDialog }) {
 
     const { adress, name } = useContext(AddressContext);
 
@@ -160,8 +151,6 @@ export function SummaryDialog({ openAdressDialog,
                                 .map(bread => bread.name)
                             } {" "} {order.drinks.filter(d => d.checked).map(drink => drink.name)}
                             </div>
-                            {/*                                     <div>{order.drinks.filter(d => d.checked).length === 0 ? null
-                                     : order.drinks.filter(d => d.checked).length}</div> */}
                             <div></div>
                             <div></div>
                         </DetailItem>
@@ -212,12 +201,3 @@ export function SummaryDialog({ openAdressDialog,
         </Dialog>
     </> : <div />
 }
-
-
-{/* <span className="bold">{formatPrice(total)}</span> */ }
-
-
-{/* <span className="bold">Namn</span>
-<Name defaultValue={loggedIn ? `${loggedIn.displayName}.` : ""}  type="text" />
-<span className="bold">Adress</span>
-<Name defaultValue="Adress" type="text" /> */}
